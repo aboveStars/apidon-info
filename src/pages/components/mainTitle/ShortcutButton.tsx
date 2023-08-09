@@ -5,9 +5,14 @@ import { BsArrowRightCircle, BsArrowRightCircleFill } from "react-icons/bs";
 type Props = {
   title: string;
   description: string;
+  behavior: () => void;
 };
 
-export default function ShortcutButton({ title, description }: Props) {
+export default function ShortcutButton({
+  title,
+  description,
+  behavior,
+}: Props) {
   const [isMouseHovered, setIsMouseHovered] = useState(false);
 
   const handleMouseHover = (hovered: boolean) => {
@@ -17,9 +22,8 @@ export default function ShortcutButton({ title, description }: Props) {
   return (
     <Flex
       padding="5"
-      borderColor="white"
       border="1px solid rgba(255,255,255,.12)"
-      borderRadius="lg"
+      borderRadius="2xl"
       bg={
         isMouseHovered
           ? "rgba(255, 255, 255, 0.2)"
@@ -37,19 +41,18 @@ export default function ShortcutButton({ title, description }: Props) {
         handleMouseHover(false);
       }}
       width={{
-        sm: "100%",
-        md: "100%",
+        base: "100%",
         lg: "20rem",
-        xl: "22rem",
       }}
-      height="10rem"
+      height="11rem"
       position="relative"
+      onClick={behavior}
     >
-      <Flex direction="column" id="text-area">
-        <Text as="b" color="white" id="shortcut-title" fontSize="lg">
+      <Flex direction="column" id="text-area" gap="2" pt="2">
+        <Text color="white" id="shortcut-title" fontSize="2xl" fontWeight="700">
           {title}
         </Text>
-        <Text id="shortcut-des" color="white" fontSize="md">
+        <Text id="shortcut-des" color="#adabb2" fontSize="md" fontWeight="500">
           {description}
         </Text>
       </Flex>
