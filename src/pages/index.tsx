@@ -1,6 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 import MainTitle from "./components/mainTitle/MainTitle";
 import MainBody from "./components/body/MainBody";
+import { useEffect } from "react";
 
 export default function Home() {
   return (

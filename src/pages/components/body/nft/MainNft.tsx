@@ -1,5 +1,6 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
+import BodyTitle from "../BodyTitle";
 import ExplanationCard from "../ExplanationCard";
 
 export default function MainNft() {
@@ -12,27 +13,10 @@ export default function MainNft() {
       gap="4"
       id="nft-root-area"
     >
-      <Flex id="nft-title-des" maxWidth="60rem" direction="column" gap="2">
-        <Text
-          fontWeight="extrabold"
-          fontSize="6xl"
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
-          bgClip="text"
-          id="main-title"
-          textAlign="center"
-          lineHeight="1"
-        >
-          Unlock Creativity
-        </Text>
-        <Text
-          as="i"
-          color="gray.500"
-          id="provider-part-first-section"
-          textAlign="center"
-        >
-          Transform your posts into timeless treasures.
-        </Text>
-      </Flex>
+      <BodyTitle
+        title="Unlock Creativity"
+        description="Transform your posts into timeless treasures."
+      />
 
       <Flex
         id="nft-explanation-card-area"

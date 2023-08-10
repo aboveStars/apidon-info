@@ -1,6 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 
 import ExplanationCard from "../ExplanationCard";
+import BodyTitle from "../BodyTitle";
 
 export default function MainProviders() {
   return (
@@ -12,31 +13,14 @@ export default function MainProviders() {
       gap="4"
       id="provider-root-area"
     >
-      <Flex id="provider-title-des" maxWidth="60rem" direction="column" gap="2">
-        <Text
-          fontWeight="extrabold"
-          fontSize="6xl"
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
-          bgClip="text"
-          id="main-title"
-          textAlign="center"
-          lineHeight="1"
-        >
-          Be a Provider
-        </Text>
-        <Text
-          as="i"
-          color="gray.500"
-          id="provider-part-first-section"
-          textAlign="center"
-        >
-          Are you a visionary data analyst, a code virtuoso, or a creative
+      <BodyTitle
+        title="Be a Provider"
+        description="Are you a visionary data analyst, a code virtuoso, or a creative
           algorithm architect? Your expertise can now take center stage within
           our groundbreaking ecosystem. By joining us as a Provider, you're not
           just offering your skills – you're sculpting the future of
-          personalized experiences.
-        </Text>
-      </Flex>
+          personalized experiences."
+      />
 
       <Flex
         id="provider-explanation-card-area"

@@ -1,8 +1,11 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import ShortcutButton from "./ShortcutButton";
+import { useInView } from "react-intersection-observer";
 
 export default function MainTitle() {
+  const [titleAndDesRef, titleAndDesInView] = useInView({});
+
   return (
     <Flex
       align="center"
@@ -42,12 +45,15 @@ export default function MainTitle() {
         align="center"
         maxWidth="40rem"
         gap="5"
+        transition="transform 1s ease-in-out"
+        transform={`scale(${titleAndDesInView ? "1" : 0.5})`}
+        ref={titleAndDesRef}
       >
         <Text
           fontWeight="extrabold"
           lineHeight="normal"
-          fontSize="6xl"
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
+          fontSize="7xl"
+          bgGradient="linear(to-l, #e4e4d9, #215f00)"
           bgClip="text"
           id="main-title"
           textAlign="left"
@@ -62,7 +68,6 @@ export default function MainTitle() {
           textAlign="left"
           maxWidth="55rem"
           lineHeight="normal"
-          
         >
           The magnificent platform enables users to select their algorithms,
           create NFTs that are marketable, and additionally welcomes algorithm
