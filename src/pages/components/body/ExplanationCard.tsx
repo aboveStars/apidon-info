@@ -41,10 +41,22 @@ export default function ExplanationCard({ title, description }: Props) {
           base: "unset",
           lg: "3.8rem",
         }}
+        _selection={{
+          backgroundColor: "cyan",
+          color: "white",
+        }}
       >
         {title}
       </Text>
-      <Text color="#adabb2" fontSize="md" fontWeight="500">
+      <Text
+        color="#adabb2"
+        fontSize="md"
+        fontWeight="500"
+        _selection={{
+          backgroundColor: "white",
+          color: "black",
+        }}
+      >
         {description}
       </Text>
     </Flex>

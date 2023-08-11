@@ -1,43 +1,20 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import React from "react";
 import ShortcutButton from "./ShortcutButton";
 import { useInView } from "react-intersection-observer";
 
 export default function MainTitle() {
-  const [titleAndDesRef, titleAndDesInView] = useInView({});
+  const [mainTitleRef, mainTitleInView] = useInView({
+    triggerOnce: false,
+  });
 
   return (
     <Flex
       align="center"
+      ml="20"
       id="root-main-title"
-      gap={{
-        base: "3rem",
-        lg: "15rem",
-      }}
       width="100%"
-      pl={{
-        base: "unset",
-        lg: "15rem",
-      }}
-      pr={{
-        base: "unset",
-        lg: "10rem",
-      }}
-      pb={{
-        base: "unset",
-        lg: "11rem",
-      }}
-      pt={{
-        base: "unset",
-        lg: "8rem",
-      }}
-      px={{
-        base: 2,
-      }}
-      direction={{
-        base: "column",
-        lg: "row",
-      }}
+      height="100vh"
     >
       <Flex
         id="title-des"
@@ -46,8 +23,8 @@ export default function MainTitle() {
         maxWidth="40rem"
         gap="5"
         transition="transform 1s ease-in-out"
-        transform={`scale(${titleAndDesInView ? "1" : 0.5})`}
-        ref={titleAndDesRef}
+        transform={`scale(${mainTitleInView ? "1" : "0"})`}
+        ref={mainTitleRef}
       >
         <Text
           fontWeight="extrabold"
@@ -57,6 +34,10 @@ export default function MainTitle() {
           bgClip="text"
           id="main-title"
           textAlign="left"
+          _selection={{
+            backgroundColor: "green",
+            color: "white",
+          }}
         >
           The Next Generation Social Media
         </Text>
@@ -68,6 +49,10 @@ export default function MainTitle() {
           textAlign="left"
           maxWidth="55rem"
           lineHeight="normal"
+          _selection={{
+            backgroundColor: "white",
+            color: "black",
+          }}
         >
           The magnificent platform enables users to select their algorithms,
           create NFTs that are marketable, and additionally welcomes algorithm
@@ -75,7 +60,7 @@ export default function MainTitle() {
         </Text>
       </Flex>
 
-      <Flex id="shortcut-buttons" gap="4" direction="column">
+      {/* <Flex id="shortcut-buttons" gap="4" direction="column">
         <ShortcutButton
           title="Unleash Your Vision"
           description="Empowering users with limitless algorithmic choice!"
@@ -100,7 +85,9 @@ export default function MainTitle() {
             section?.scrollIntoView({ behavior: "smooth", block: "start" });
           }}
         />
-      </Flex>
+      </Flex> */}
+
+     
     </Flex>
   );
 }

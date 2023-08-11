@@ -8,7 +8,7 @@ type Props = {
   description: string;
 };
 
-export default function BodyTitle({title, description}: Props) {
+export default function BodyTitle({ title, description }: Props) {
   const [titleAndDesRef, inView] = useInView({
     triggerOnce: false,
   });
@@ -31,6 +31,10 @@ export default function BodyTitle({title, description}: Props) {
         textAlign="center"
         fontWeight="extrabold"
         lineHeight="1"
+        _selection={{
+          backgroundColor: "green",
+          color: "white",
+        }}
       >
         {title}
       </Text>
@@ -39,8 +43,12 @@ export default function BodyTitle({title, description}: Props) {
         color="gray.500"
         id="user-part-first-section"
         textAlign="center"
+        _selection={{
+          backgroundColor: "white",
+          color: "black",
+        }}
       >
-       {description}
+        {description}
       </Text>
     </Flex>
   );
