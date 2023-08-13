@@ -29,7 +29,8 @@ export default function ExplanationCard({ title, description }: Props) {
       p="3"
       ref={ecRef}
       transition="transform 0.8s ease-in-out"
-      transform={`scale(${inView ? "1" : "0"})`}
+      transform="auto"
+      scale={inView ? 1 : 0}
     >
       <Text
         bgGradient="linear(to-l,#2193b0, #6dd5ed)"

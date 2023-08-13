@@ -1,44 +1,42 @@
 import {
-  sectionNumberStateAtom,
-  sectionNumbers,
+  titleNames,
+  titleNamesStateAtom,
 } from "@/atoms/sectionNumberStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useSetRecoilState } from "recoil";
 
 type Props = {
   title: string;
   description: string;
-  sectionNumber: sectionNumbers;
+  titleName: titleNames;
 };
 
-export default function GeneralTitle({
-  title,
-  description,
-  sectionNumber,
-}: Props) {
-  const setSectionNumberState = useSetRecoilState(sectionNumberStateAtom);
+export default function GeneralTitle({ title, description, titleName }: Props) {
+  const setTitleNameState = useSetRecoilState(titleNamesStateAtom);
   const [generalTitleRef, generalTitleInView] = useInView({
     triggerOnce: false,
   });
 
   useEffect(() => {
-    if (generalTitleInView) setSectionNumberState(sectionNumber);
+    if (generalTitleInView) {
+      setTitleNameState(titleName);
+    }
   }, [generalTitleInView]);
 
   return (
     <Flex
-      id="title-des"
+      id={`generalTitle-section-${titleName}`}
       direction="column"
       justify="center"
-      maxWidth="40rem"
       gap="5"
-      transition="transform 1s ease-in-out"
-      transform={`scale(${generalTitleInView ? "1" : "0"})`}
-      ref={generalTitleRef}
       ml="20"
       height="100vh"
+      maxWidth="40rem"
+      ref={generalTitleRef}
+      transition="transform 1s ease-in-out"
+      transform={`scale(${generalTitleInView ? "1" : "0"})`}
     >
       <Text
         fontWeight="extrabold"
