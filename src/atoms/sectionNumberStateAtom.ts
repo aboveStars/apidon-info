@@ -9,7 +9,6 @@ export type titleNames =
   | "rewards"
   | "seamless"
   | "elevate"
-  | "become"
   | "unlock"
   | "elevateYour"
   | "seize"

@@ -1,5 +1,6 @@
 import { titleNamesStateAtom } from "@/atoms/sectionNumberStateAtom";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
 
@@ -17,7 +18,6 @@ export default function PhoneMockUp() {
     "rewards",
     "seamless",
     "elevate",
-    "become",
     "unlock",
     "elevateYour",
     "seize",
@@ -32,33 +32,41 @@ export default function PhoneMockUp() {
     "yourMonetization",
   ];
 
+  useEffect(() => {
+    console.log(titleNameState);
+  }, [titleNameState]);
+
   return (
     <>
       {images.map((n, i) => (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
+        <Flex
           transform="auto"
-          translateX={phoneMockUpInView ? "130px" : "-200px"}
-          transition="transform 1s ease-in-out"
-          position="fixed"
-          right="10"
-          top="10"
+          translateX={
+            titleNameState === "theNext"
+              ? "-25rem"
+              : phoneMockUpInView
+              ? "130px"
+              : "-200px"
+          }
+          transition="all 1s ease-in-out"
+          rotate={titleNameState === "theNext" ? "90deg" : "0deg"}
+          scale={titleNameState === "theNext" ? "1.5" : "1"}
           userSelect="none"
           pointerEvents="none"
           ref={phoneMockUpRef}
           key={i}
+          opacity={titleNameState === n ? 1 : 0}
+          position="fixed"
+          right="10"
+          top="10"
         >
           <Image
             src={`/images/${n}.png`}
             alt={n}
             objectFit="contain"
             boxSize="3xl"
-            transition="opacity 1s ease-in-out"
-            opacity={titleNameState !== n ? 0 : 1}
           />
-        </Box>
+        </Flex>
       ))}
     </>
   );

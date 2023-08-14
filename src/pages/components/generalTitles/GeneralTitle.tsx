@@ -30,13 +30,15 @@ export default function GeneralTitle({ title, description, titleName }: Props) {
       id={`generalTitle-section-${titleName}`}
       direction="column"
       justify="center"
+
       gap="5"
       ml="20"
       height="100vh"
       maxWidth="40rem"
-      ref={generalTitleRef}
       transition="transform 1s ease-in-out"
-      transform={`scale(${generalTitleInView ? "1" : "0"})`}
+      transform="auto"
+      scale={generalTitleInView ? (titleName === "theNext" ? "1.1" : "1") : "0"}
+      translateX={titleName === "theNext" ? "20rem" : "0"}
     >
       <Text
         fontWeight="extrabold"
@@ -50,6 +52,7 @@ export default function GeneralTitle({ title, description, titleName }: Props) {
           backgroundColor: "green",
           color: "white",
         }}
+        ref={generalTitleRef}
       >
         {title}
       </Text>
