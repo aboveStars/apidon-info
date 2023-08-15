@@ -5,7 +5,7 @@ import {
 import { Flex, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 type Props = {
   title: string;
@@ -14,7 +14,8 @@ type Props = {
 };
 
 export default function GeneralTitle({ title, description, titleName }: Props) {
-  const setTitleNameState = useSetRecoilState(titleNamesStateAtom);
+  const [titleNameState, setTitleNameState] =
+    useRecoilState(titleNamesStateAtom);
   const [generalTitleRef, generalTitleInView] = useInView({
     triggerOnce: false,
   });
@@ -30,7 +31,6 @@ export default function GeneralTitle({ title, description, titleName }: Props) {
       id={`generalTitle-section-${titleName}`}
       direction="column"
       justify="center"
-
       gap="5"
       ml="20"
       height="100vh"

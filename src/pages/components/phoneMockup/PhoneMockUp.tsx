@@ -4,6 +4,27 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
 
+export const allTitlesForMockUpOriginally = [
+  "theNext",
+  "unLeash",
+  "crafting",
+  "rewards",
+  "seamless",
+  "elevate",
+  "unlock",
+  "elevateYour",
+  "seize",
+  "craft",
+  "your",
+  "enter",
+  "be",
+  "unleashAlgo",
+  "elevateWith",
+  "fuel",
+  "privacy",
+  "yourMonetization",
+];
+
 export default function PhoneMockUp() {
   const [phoneMockUpRef, phoneMockUpInView] = useInView({
     triggerOnce: true,
@@ -11,34 +32,13 @@ export default function PhoneMockUp() {
 
   const titleNameState = useRecoilValue(titleNamesStateAtom);
 
-  const images = [
-    "theNext",
-    "unLeash",
-    "crafting",
-    "rewards",
-    "seamless",
-    "elevate",
-    "unlock",
-    "elevateYour",
-    "seize",
-    "craft",
-    "your",
-    "enter",
-    "be",
-    "unleashAlgo",
-    "elevateWith",
-    "fuel",
-    "privacy",
-    "yourMonetization",
-  ];
-
   useEffect(() => {
     console.log(titleNameState);
   }, [titleNameState]);
 
   return (
     <>
-      {images.map((n, i) => (
+      {allTitlesForMockUpOriginally.map((n, i) => (
         <Flex
           transform="auto"
           translateX={
