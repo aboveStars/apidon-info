@@ -3,9 +3,10 @@ import {
   titleNamesStateAtom,
 } from "@/atoms/sectionNumberStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
+
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 type Props = {
   title: string;
@@ -13,31 +14,27 @@ type Props = {
   titleName: titleNames;
 };
 
-export default function GeneralTitle({ title, description, titleName }: Props) {
+export default function Title({ title, description, titleName }: Props) {
   const setTitleNameState = useSetRecoilState(titleNamesStateAtom);
-  const [generalTitleRef, generalTitleInView] = useInView({
-    triggerOnce: false,
-  });
+  const [ref, inView] = useInView();
 
   useEffect(() => {
-    if (generalTitleInView) {
+    if (inView) {
       setTitleNameState(titleName);
     }
-  }, [generalTitleInView]);
+  }, [inView]);
 
   return (
     <Flex
-      id={`generalTitle-section-${titleName}`}
       direction="column"
+      height="100vh"
       justify="center"
       gap="5"
-      ml="20"
-      height="100vh"
-      maxWidth="40rem"
-      transition="transform 1s ease-in-out"
       transform="auto"
-      scale={generalTitleInView ? (titleName === "theNext" ? "1.1" : "1") : "0"}
-      translateX={titleName === "theNext" ? "20rem" : "0"}
+      scale={inView ? 1 : 0}
+      transition="1s transform ease-in-out"
+      align="center"
+      px={5}
     >
       <Text
         fontWeight="extrabold"
@@ -51,7 +48,8 @@ export default function GeneralTitle({ title, description, titleName }: Props) {
           backgroundColor: "green",
           color: "white",
         }}
-        ref={generalTitleRef}
+        ref={ref}
+        maxWidth="40rem"
       >
         {title}
       </Text>
@@ -61,12 +59,12 @@ export default function GeneralTitle({ title, description, titleName }: Props) {
         fontSize="1xl"
         id="description"
         textAlign="left"
-        maxWidth="55rem"
         lineHeight="normal"
         _selection={{
           backgroundColor: "white",
           color: "black",
         }}
+        maxWidth="40rem"
       >
         {description}
       </Text>

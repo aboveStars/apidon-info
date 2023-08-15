@@ -1,5 +1,5 @@
 import { titleNamesStateAtom } from "@/atoms/sectionNumberStateAtom";
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
@@ -11,18 +11,13 @@ export const allTitlesForMockUpOriginally = [
   "rewards",
   "seamless",
   "elevate",
-  "unlock",
   "elevateYour",
-  "seize",
   "craft",
   "your",
   "enter",
   "be",
   "unleashAlgo",
-  "elevateWith",
   "fuel",
-  "privacy",
-  "yourMonetization",
 ];
 
 export default function PhoneMockUp() {

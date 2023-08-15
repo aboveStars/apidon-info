@@ -9,18 +9,12 @@ export type titleNames =
   | "rewards"
   | "seamless"
   | "elevate"
-  | "unlock"
   | "elevateYour"
-  | "seize"
   | "craft"
-  | "your"
   | "enter"
   | "be"
   | "unleashAlgo"
-  | "elevateWith"
-  | "fuel"
-  | "privacy"
-  | "yourMonetization";
+  | "fuel";
 
 export const titleNamesStateAtom = atom<titleNames>({
   key: "titleNamesStateAtom",
