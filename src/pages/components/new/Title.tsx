@@ -21,7 +21,7 @@ export default function Title({ title, description, titleName }: Props) {
   const isMobile = useBreakpointValue({
     base: true,
     sm: true,
-    md: false,
+    md: true,
     lg: false,
     xl: false,
     "2xl": false,
@@ -47,11 +47,11 @@ export default function Title({ title, description, titleName }: Props) {
       <Text
         fontWeight="extrabold"
         lineHeight="normal"
-        fontSize={isMobile ? "6xl" : "7xl"}
+        fontSize={isMobile ? "5xl" : "7xl"}
         bgGradient="linear(to-l, #e4e4d9, #215f00)"
         bgClip="text"
         id="main-title"
-        textAlign={isMobile ? "center" : "left"}
+        textAlign="left"
         _selection={{
           backgroundColor: "green",
           color: "white",
@@ -64,9 +64,9 @@ export default function Title({ title, description, titleName }: Props) {
 
       <Text
         color="gray.500"
-        fontSize={isMobile ? "md" : "lg"}
+        fontSize={isMobile ? "sm" : "lg"}
         id="description"
-        textAlign={isMobile ? "center" : "left"}
+        textAlign="left"
         lineHeight="normal"
         _selection={{
           backgroundColor: "white",

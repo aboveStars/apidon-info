@@ -1,6 +1,6 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendBaseTheme } from "@chakra-ui/react";
 
-export const theme = extendTheme({
+export const theme = extendBaseTheme({
   styles: {
     global: () => ({
       body: {

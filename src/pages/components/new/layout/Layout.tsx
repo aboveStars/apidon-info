@@ -9,7 +9,7 @@ export default function Layout() {
   const isMobile = useBreakpointValue({
     base: true,
     sm: true,
-    md: false,
+    md: true,
     lg: false,
     xl: false,
     "2xl": false,
