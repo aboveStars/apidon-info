@@ -1,6 +1,6 @@
 import { titleNamesStateAtom } from "@/atoms/sectionNumberStateAtom";
-import { Flex, Img } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Img, useBreakpointValue } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 type Props = {};
@@ -23,18 +23,55 @@ const allTitles = [
 export default function Phone({}: Props) {
   const titleNameState = useRecoilValue(titleNamesStateAtom);
 
-  const [viewportWidth, setviewportWidth] = useState(0);
+  const isMobile = useBreakpointValue({
+    base: true,
+    sm: true,
+    md: false,
+    lg: false,
+    xl: false,
+    "2xl": false,
+  });
 
-  const a = 1000
+  const [scrollRatio, setScrollRatio] = useState(0);
+  const [locationOfPhone, setLocationOfPhone] = useState("-100%");
+
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const totalScrollableHeight =
+      document.documentElement.scrollHeight - windowHeight;
+    const scrolled = window.scrollY;
+    const ratio = scrolled / totalScrollableHeight;
+
+    /** SomeInformations
+     * 1-) 0 => -100, 0.045 => +100
+     * 2-) 0.09 => +100, 0.136.5 => -100
+     * 3-)
+     */
+
+    /** EQs
+     * 1-) y = 4444.44x - 100
+     * 2-) y = -2185.79x + 198.36
+     */
+    let locationNumeric;
+    if (ratio <= 0.045) {
+      locationNumeric = 4444.44 * ratio - 100;
+    } else if (ratio >= 0.045) {
+      locationNumeric = -3960.4 * ratio + 440.59;
+    }
+
+    const location = `${locationNumeric}%`;
+
+    setLocationOfPhone(location);
+
+    console.log("Ratio: ", ratio, "Location: ", location);
+    setScrollRatio(ratio);
+  };
 
   useEffect(() => {
-    const handleResize = () => {
-      console.log(window.innerWidth);
-      setviewportWidth(window.innerWidth);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
-
-    window.addEventListener("resize", () => handleResize());
-    return window.removeEventListener("resize", () => handleResize());
   }, []);
 
   return (
@@ -42,17 +79,23 @@ export default function Phone({}: Props) {
       {allTitles.map((t, i) => (
         <Img
           key={i}
-          position="absolute"
-          top={5}
-          right={5}
+          position={isMobile ? "fixed" : "absolute"}
+          top={isMobile ? "3" : "5"}
+          right={isMobile ? "unset" : "5"}
+          left={isMobile ? "0" : "unset"}
           src={`/images/${t}.png`}
           alt={t}
-          boxSize="3xl"
+          boxSize={isMobile ? "unset" : "3xl"}
           objectFit="contain"
-          transition="all 1s ease-in-out"
+          transition={{
+            opacity: "1s ease-in-out",
+            translateX: "0.1s ease",
+          }}
           transform="auto"
-          rotate={titleNameState === "theNext" ? "45deg" : "0deg"}
           opacity={titleNameState === t ? 1 : 0}
+          //translateX={`-${-100 + (6666 * scrollRatio)}%`}
+          translateX={isMobile ? locationOfPhone : "0"}
+          zIndex={1}
         />
       ))}
     </>

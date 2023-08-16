@@ -2,7 +2,7 @@ import {
   titleNames,
   titleNamesStateAtom,
 } from "@/atoms/sectionNumberStateAtom";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
@@ -17,6 +17,15 @@ type Props = {
 export default function Title({ title, description, titleName }: Props) {
   const setTitleNameState = useSetRecoilState(titleNamesStateAtom);
   const [ref, inView] = useInView();
+
+  const isMobile = useBreakpointValue({
+    base: true,
+    sm: true,
+    md: false,
+    lg: false,
+    xl: false,
+    "2xl": false,
+  });
 
   useEffect(() => {
     if (inView) {
@@ -33,38 +42,37 @@ export default function Title({ title, description, titleName }: Props) {
       transform="auto"
       scale={inView ? 1 : 0}
       transition="1s transform ease-in-out"
-      align="center"
-      px={5}
+      px={isMobile ? "unset" : "20"}
     >
       <Text
         fontWeight="extrabold"
         lineHeight="normal"
-        fontSize="7xl"
+        fontSize={isMobile ? "6xl" : "7xl"}
         bgGradient="linear(to-l, #e4e4d9, #215f00)"
         bgClip="text"
         id="main-title"
-        textAlign="left"
+        textAlign={isMobile ? "center" : "left"}
         _selection={{
           backgroundColor: "green",
           color: "white",
         }}
         ref={ref}
-        maxWidth="40rem"
+        maxWidth={isMobile ? "unset" : "45rem"}
       >
         {title}
       </Text>
 
       <Text
         color="gray.500"
-        fontSize="1xl"
+        fontSize={isMobile ? "md" : "lg"}
         id="description"
-        textAlign="left"
+        textAlign={isMobile ? "center" : "left"}
         lineHeight="normal"
         _selection={{
           backgroundColor: "white",
           color: "black",
         }}
-        maxWidth="40rem"
+        maxWidth={isMobile ? "unset" : "40rem"}
       >
         {description}
       </Text>

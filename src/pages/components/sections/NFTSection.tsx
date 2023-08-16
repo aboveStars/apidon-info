@@ -10,7 +10,7 @@ export default function NFTSection() {
         titleName="enter"
       />
       <Title
-        title="Elevate Your Content to Unprecedented Value"
+        title="Elevate Your Content to ? Value"
         description="Imagine turning your posts into unique, verifiable digital assets that resonate with collectors, enthusiasts, and art aficionados across the globe. With just a few clicks, your words, images, and ideas become captivating NFTs, ready to be showcased, traded, and celebrated."
         titleName="elevateYour"
       />
