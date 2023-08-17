@@ -3,8 +3,6 @@ import { Img, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
-type Props = {};
-
 const allTitles = [
   "theNext",
   "unLeash",
@@ -20,7 +18,7 @@ const allTitles = [
   "fuel",
 ];
 
-export default function Phone({}: Props) {
+export default function Phone() {
   const titleNameState = useRecoilValue(titleNamesStateAtom);
 
   const isMobile = useBreakpointValue({
@@ -67,8 +65,6 @@ export default function Phone({}: Props) {
       locationNumeric = 4111.349036402573 * ratio - 3457.8501070663838;
     } else if (ratio > 0.8644 && ratio <= 0.9553) {
       locationNumeric = -3975.155279503105 * ratio + 3701.465838509316;
-    } else {
-      locationNumeric = 96;
     }
 
     const location = `${locationNumeric}%`;
@@ -77,7 +73,10 @@ export default function Phone({}: Props) {
       setLocationOfPhone(location);
       const opacityNumeric =
         -0.010416666666666666 * Math.abs(locationNumeric) + 1;
-      setOpacity(opacityNumeric);
+      if (opacityNumeric >= 0) setOpacity(opacityNumeric);
+      else setOpacity(0);
+    } else {
+      setOpacity(0);
     }
   };
 
@@ -103,9 +102,11 @@ export default function Phone({}: Props) {
           boxSize={isMobile ? "unset" : "3xl"}
           objectFit="contain"
           transform="auto"
-          transitionTimingFunction={isMobile ? "linear" : "ease-in-out"}
-          transitionProperty="opacity,translate"
-          transitionDuration={isMobile ? "100ms, 200ms" : "1s"}
+          // transitionTimingFunction={isMobile ? "linear" : "ease-in-out"}
+          // transitionProperty="opacity,translate"
+          // transitionDuration={isMobile ? "all 1s" : "1s"}
+
+          transition={isMobile ? "all 100ms linear" : "all 1s ease-in-out"}
           hidden={isMobile ? titleNameState !== t : false}
           opacity={isMobile ? opacity : titleNameState === t ? 1 : 0}
           translateX={isMobile ? locationOfPhone : "0"}

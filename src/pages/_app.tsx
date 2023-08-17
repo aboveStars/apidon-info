@@ -1,17 +1,16 @@
-import { ChakraBaseProvider } from "@chakra-ui/react";
+import { ParticlesContainer } from "@/animatedBg/StarsAnimatedBg";
+import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
-import { theme } from "./components/chakra/theme";
-import { ParticlesContainer } from "@/animatedBg/StarsAnimatedBg";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ParticlesContainer />
       <RecoilRoot>
-        <ChakraBaseProvider theme={theme}>
+        <ChakraProvider>
           <Component {...pageProps} />
-        </ChakraBaseProvider>
+        </ChakraProvider>
       </RecoilRoot>
     </>
   );
