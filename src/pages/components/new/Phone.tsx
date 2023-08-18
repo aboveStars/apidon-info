@@ -102,15 +102,11 @@ export default function Phone() {
           boxSize={isMobile ? "unset" : "3xl"}
           objectFit="contain"
           transform="auto"
-          // transitionTimingFunction={isMobile ? "linear" : "ease-in-out"}
-          // transitionProperty="opacity,translate"
-          // transitionDuration={isMobile ? "all 1s" : "1s"}
-
           transition={isMobile ? "all 100ms linear" : "all 1s ease-in-out"}
           hidden={isMobile ? titleNameState !== t : false}
           opacity={isMobile ? opacity : titleNameState === t ? 1 : 0}
           translateX={isMobile ? locationOfPhone : "0"}
-          zIndex={1}
+          zIndex={2}
         />
       ))}
     </>

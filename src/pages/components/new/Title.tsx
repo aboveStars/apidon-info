@@ -43,6 +43,7 @@ export default function Title({ title, description, titleName }: Props) {
       scale={inView ? 1 : 0}
       transition="1s transform ease-in-out"
       px={isMobile ? "unset" : "20"}
+      zIndex={1}
     >
       <Text
         fontWeight="extrabold"
