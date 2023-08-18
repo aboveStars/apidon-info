@@ -107,6 +107,7 @@ export default function Phone() {
           opacity={isMobile ? opacity : titleNameState === t ? 1 : 0}
           translateX={isMobile ? locationOfPhone : "0"}
           zIndex={2}
+          pointerEvents="none"
         />
       ))}
     </>
