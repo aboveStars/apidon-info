@@ -1,12 +1,12 @@
+import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import {
   titleNames,
   titleNamesStateAtom,
 } from "@/atoms/sectionNumberStateAtom";
-import { Flex, Text, useBreakpointValue } from "@chakra-ui/react";
-
-import React, { useEffect } from "react";
+import { Flex, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 type Props = {
   title: string;
@@ -18,14 +18,7 @@ export default function Title({ title, description, titleName }: Props) {
   const setTitleNameState = useSetRecoilState(titleNamesStateAtom);
   const [ref, inView] = useInView();
 
-  const isMobile = useBreakpointValue({
-    base: true,
-    sm: true,
-    md: true,
-    lg: false,
-    xl: false,
-    "2xl": false,
-  });
+  const screenModeStateValue = useRecoilValue(screenModStateAtom);
 
   useEffect(() => {
     if (inView) {
@@ -42,13 +35,13 @@ export default function Title({ title, description, titleName }: Props) {
       transform="auto"
       scale={inView ? 1 : 0}
       transition="1s transform ease-in-out"
-      px={isMobile ? "unset" : "20"}
+      px={screenModeStateValue === "mobile" ? "unset" : "20"}
       zIndex={1}
     >
       <Text
         fontWeight="extrabold"
         lineHeight="normal"
-        fontSize={isMobile ? "5xl" : "7xl"}
+        fontSize={screenModeStateValue === "mobile" ? "5xl" : "7xl"}
         bgGradient="linear(to-l, #e4e4d9, #215f00)"
         bgClip="text"
         id="main-title"
@@ -58,14 +51,14 @@ export default function Title({ title, description, titleName }: Props) {
           color: "white",
         }}
         ref={ref}
-        maxWidth={isMobile ? "unset" : "45rem"}
+        maxWidth={screenModeStateValue === "mobile" ? "unset" : "45rem"}
       >
         {title}
       </Text>
 
       <Text
         color="gray.500"
-        fontSize={isMobile ? "sm" : "lg"}
+        fontSize={screenModeStateValue === "mobile" ? "sm" : "lg"}
         id="description"
         textAlign="left"
         lineHeight="normal"
@@ -73,7 +66,7 @@ export default function Title({ title, description, titleName }: Props) {
           backgroundColor: "white",
           color: "black",
         }}
-        maxWidth={isMobile ? "unset" : "40rem"}
+        maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
       >
         {description}
       </Text>

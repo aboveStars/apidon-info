@@ -5,10 +5,9 @@ export type sectionNumbers = 1 | 2 | 3 | 4;
 export type titleNames =
   | "theNext"
   | "unLeash"
-  | "crafting"
-  | "rewards"
-  | "seamless"
-  | "elevate"
+  | "unique"
+  | "effortless"
+  | "your"
   | "elevateYour"
   | "craft"
   | "enter"

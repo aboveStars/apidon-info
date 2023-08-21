@@ -1,12 +1,13 @@
+import { backgroundEngineStateAtom } from "@/atoms/backgroundEngineStateAtom";
+import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import NFTSection from "../../sections/NFTSection";
 import ProviderSection from "../../sections/ProviderSection";
 import UserSection from "../../sections/UserSection";
 import Phone from "../Phone";
 import Title from "../Title";
-import { useRecoilValue } from "recoil";
-import { backgroundEngineStateAtom } from "@/atoms/backgroundEngineStateAtom";
-import { useEffect } from "react";
 
 export default function Layout() {
   const isMobile = useBreakpointValue({
@@ -19,12 +20,22 @@ export default function Layout() {
   });
 
   const bgEngineState = useRecoilValue(backgroundEngineStateAtom);
+  const [screenModeState, setScreenModeState] =
+    useRecoilState(screenModStateAtom);
+
+  useEffect(() => {
+    setScreenModeState(isMobile ? "mobile" : "large");
+  }, [isMobile]);
+
+  useEffect(() => {
+    scrollTo(0, 0);
+  }, []);
 
   return (
     <>
       {bgEngineState.backgroundInitialized ? (
         <>
-          <Flex id="lg-screen" hidden={isMobile}>
+          <Flex id="lg-screen" hidden={screenModeState === "mobile"}>
             <Box flex="1" zIndex="1">
               <Title
                 titleName="theNext"
@@ -51,7 +62,7 @@ export default function Layout() {
 
           <Flex
             id="small-screen"
-            hidden={!isMobile}
+            hidden={screenModeState === "large"}
             direction="column"
             px={5}
             bg="black"

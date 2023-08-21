@@ -6,31 +6,23 @@ export default function UserSection() {
     <Flex direction="column">
       <Title
         title="Unleash Your Vision"
-        description="Revolutionizing the way you experience social media, our innovative
-              platform puts you in control like never before. Say goodbye to the
-              one-size-fits-all approach of traditional social platforms. With us,
-              you're the curator of your own digital journey."
+        description="Choose from diverse algorithm creators who craft tailored experiences, shaping your feed to amplify what matters to you."
         titleName="unLeash"
       />
       <Title
-        title="Crafting Your Personalized Experience"
-        description="Unleash the power of choice by handpicking a provider from a diverse array of algorithm creators. These providers don't just offer algorithms; they craft experiences. They sculpt your feed, tailor-fitting content to your preferences, and amplifying what truly matters to you."
-        titleName="crafting"
+        title="Effortless Preference Flexibility"
+        description="Change is constant, including your preferences. Switch providers anytime. Your journey, your choices - we're here to empower."
+        titleName="effortless"
       />
       <Title
-        title="Seamless Flexibility for Your Preferences"
-        description="Change is the only constant, and your preferences are no exception. Feel free to switch providers whenever you desire. Your journey is your own, and we're here to empower your choices."
-        titleName="seamless"
+        title="Unique Engagement Rewards"
+        description="Your data is precious. We value your actions and insights that shape your digital world. Get monthly crypto rewards for your contributions."
+        titleName="unique"
       />
       <Title
-        title="Rewards as Unique as Your Engagement"
-        description="Your data is valuable, and we believe you should be rewarded for it. Every swipe, every interaction, every preference - they all contribute to a dynamic tapestry that makes your digital world unique. As a token of our appreciation, we reward you with monthly crypto payments. Your engagement is your asset, and we want you to share in the success you help create."
-        titleName="rewards"
-      />
-      <Title
-        title="Elevate the Platform with Your Voice"
-        description="We're not just transforming the way you consume content; we're revolutionizing the way you express satisfaction. Rate your providers, let your voice be heard, and foster a community of excellence. Your feedback drives us, your fellow users, and the providers to elevate the platform to new heights."
-        titleName="elevate"
+        title="Your Voice Matters"
+        description="Rate providers and make your voice heard to contribute towards improving the platform for everyone."
+        titleName="your"
       />
     </Flex>
   );
