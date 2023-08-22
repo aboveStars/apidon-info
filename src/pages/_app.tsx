@@ -9,8 +9,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <ChakraProvider>
           <Component {...pageProps} />
+          <StarsAnimatedBg />
         </ChakraProvider>
-        <StarsAnimatedBg />
       </RecoilRoot>
     </>
   );

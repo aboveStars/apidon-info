@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import Title from "../new/Title";
+import Title from "../Title";
 
 export default function UserSection() {
   return (

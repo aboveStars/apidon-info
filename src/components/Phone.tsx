@@ -11,12 +11,8 @@ const allTitles = [
   "unique",
   "effortless",
   "your",
-  "elevateYour",
-  "craft",
   "enter",
-  "be",
   "unleashAlgo",
-  "fuel",
 ];
 
 export default function Phone() {
@@ -77,6 +73,10 @@ export default function Phone() {
       locationNumeric = 4000.000000000001 * ratio - 1300.0000000000002;
     } else if (ratio <= 0.45) {
       locationNumeric = -4000.000000000001 * ratio + 1700.0000000000005;
+    } else if (ratio <= 0.55) {
+      locationNumeric = 3999.9999999999964 * ratio - 2099.999999999998;
+    } else if (ratio <= 0.6875) {
+      locationNumeric = -3252.032520325203 * ratio + 2135.7723577235774;
     } else {
       locationNumeric = 100;
     }

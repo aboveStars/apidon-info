@@ -8,12 +8,8 @@ export type titleNames =
   | "unique"
   | "effortless"
   | "your"
-  | "elevateYour"
-  | "craft"
   | "enter"
-  | "be"
-  | "unleashAlgo"
-  | "fuel";
+  | "unleashAlgo";
 
 export const titleNamesStateAtom = atom<titleNames>({
   key: "titleNamesStateAtom",
