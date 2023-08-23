@@ -3,13 +3,12 @@ import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import Phone from "./Phone";
+import FooterSection from "./sections/FooterSection";
 import NFTSection from "./sections/NFTSection";
 import ProviderSection from "./sections/ProviderSection";
 import UserSection from "./sections/UserSection";
-import Phone from "./Phone";
-import Title from "./Title";
 import WelcomeSection from "./sections/WelcomeSection";
-import FooterSection from "./sections/FooterSection";
 
 export default function Layout() {
   const isMobile = useBreakpointValue({
@@ -62,7 +61,6 @@ export default function Layout() {
             hidden={screenModeState === "large"}
             direction="column"
             px={5}
-            bg="black"
           >
             <Phone />
             <WelcomeSection />
@@ -73,7 +71,7 @@ export default function Layout() {
           </Flex>
         </>
       ) : (
-        <Flex height="100vh" justify="center" align="center" bg="black">
+        <Flex height="100vh" justify="center" align="center">
           <Text color="white">Loading.....</Text>
         </Flex>
       )}

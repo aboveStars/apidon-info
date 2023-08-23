@@ -42,7 +42,8 @@ export default function Title({ title, description, titleName }: Props) {
         fontWeight="extrabold"
         lineHeight="normal"
         fontSize={screenModeStateValue === "mobile" ? "5xl" : "7xl"}
-        bgGradient="linear(to-l, #e4e4d9, #215f00)"
+       // bgGradient="linear(to-l, #4dc9e6, #210cae)"
+         bgGradient="linear(to-l, #0061ff, #60efff)"
         bgClip="text"
         id="main-title"
         textAlign="left"

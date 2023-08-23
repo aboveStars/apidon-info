@@ -23,7 +23,9 @@ export default function FooterSection() {
         fontWeight="extrabold"
         lineHeight="normal"
         fontSize={screenModeStateValue === "mobile" ? "5xl" : "7xl"}
-        bgGradient="linear(to-l, #0061ff, #60efff)"
+        // bgGradient="linear(to-l, #0061ff, #60efff)"
+         bgGradient="linear(to-l, #ff930f, #fff95b)"
+
         bgClip="text"
         id="main-title"
         textAlign="center"
@@ -37,20 +39,26 @@ export default function FooterSection() {
         Made with ❤️ in İstanbul
       </Text>
 
-      <Text
-        color="gray.500"
-        fontSize={screenModeStateValue === "mobile" ? "sm" : "lg"}
-        id="description"
-        textAlign="center"
-        lineHeight="normal"
-        _selection={{
-          backgroundColor: "white",
-          color: "black",
-        }}
-        maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
-      >
-        Github Link ↗️
-      </Text>
+      <Flex justify="center">
+        <Text
+          color="gray.500"
+          fontSize={screenModeStateValue === "mobile" ? "sm" : "lg"}
+          id="description"
+          textAlign="center"
+          lineHeight="normal"
+          _selection={{
+            backgroundColor: "white",
+            color: "black",
+          }}
+          maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
+          cursor="pointer"
+          onClick={() => {
+            window.open("https://github.com", "_blank", "noopener,noreferrer");
+          }}
+        >
+          GitHub Link ↗️
+        </Text>
+      </Flex>
     </Flex>
   );
 }
