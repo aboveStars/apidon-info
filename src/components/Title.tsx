@@ -42,13 +42,12 @@ export default function Title({ title, description, titleName }: Props) {
         fontWeight="extrabold"
         lineHeight="normal"
         fontSize={screenModeStateValue === "mobile" ? "5xl" : "7xl"}
-       // bgGradient="linear(to-l, #4dc9e6, #210cae)"
-         bgGradient="linear(to-l, #0061ff, #60efff)"
+        bgGradient="linear(to-l, #0061ff, #60efff)"
         bgClip="text"
         id="main-title"
         textAlign="left"
         _selection={{
-          backgroundColor: "green",
+          backgroundColor: "#19A6C8",
           color: "white",
         }}
         ref={ref}
@@ -58,7 +57,8 @@ export default function Title({ title, description, titleName }: Props) {
       </Text>
 
       <Text
-        color="gray.500"
+      as="b"
+        color="#a1a1a6"
         fontSize={screenModeStateValue === "mobile" ? "sm" : "lg"}
         id="description"
         textAlign="left"

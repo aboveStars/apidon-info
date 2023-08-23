@@ -137,6 +137,7 @@ export default function Phone() {
           scale={screenModeStateValue === "mobile" ? "1" : inView ? "1" : "1.1"}
           zIndex={2}
           pointerEvents="none"
+          userSelect="none"
         />
       ))}
     </>
