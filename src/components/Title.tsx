@@ -57,7 +57,7 @@ export default function Title({ title, description, titleName }: Props) {
       </Text>
 
       <Text
-      as="b"
+        as="b"
         color="#a1a1a6"
         fontSize={screenModeStateValue === "mobile" ? "sm" : "lg"}
         id="description"

@@ -23,9 +23,7 @@ export default function FooterSection() {
         fontWeight="extrabold"
         lineHeight="normal"
         fontSize={screenModeStateValue === "mobile" ? "5xl" : "7xl"}
-        // bgGradient="linear(to-l, #0061ff, #60efff)"
-         bgGradient="linear(to-l, #ff930f, #fff95b)"
-
+        bgGradient="linear(to-l, #ff930f, #fff95b)"
         bgClip="text"
         id="main-title"
         textAlign="center"

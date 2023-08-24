@@ -101,12 +101,11 @@ export default function Phone() {
           ref={ref}
           key={i}
           position={screenModeStateValue === "mobile" ? "fixed" : "absolute"}
-          top={screenModeStateValue === "mobile" ? "3" : "5"}
-          right={screenModeStateValue === "mobile" ? "unset" : "5"}
-          left={screenModeStateValue === "mobile" ? "0" : "unset"}
-          src={`/images/${t}.png`}
+          // src={`/images/${t}.png`}
+          src="/videos/mobile.gif"
           alt={t}
-          boxSize={screenModeStateValue === "mobile" ? "unset" : "3xl"}
+          boxSize="100%"
+          p={screenModeStateValue === "mobile" ? "unset" : "5"}
           objectFit="contain"
           transform="auto"
           transition={
