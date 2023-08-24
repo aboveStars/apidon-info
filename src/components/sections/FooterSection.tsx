@@ -51,7 +51,7 @@ export default function FooterSection() {
           maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
           cursor="pointer"
           onClick={() => {
-            window.open("https://github.com", "_blank", "noopener,noreferrer");
+            window.open("https://github.com/aboveStars/blocksocial-v2-frontend", "_blank", "noopener,noreferrer");
           }}
         >
           GitHub Link ↗️
