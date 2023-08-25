@@ -1,6 +1,6 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { titleNamesStateAtom } from "@/atoms/sectionNumberStateAtom";
-import { Img } from "@chakra-ui/react";
+import { Flex, Img, position } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
@@ -8,11 +8,11 @@ import { useRecoilValue } from "recoil";
 const allTitles = [
   "theNext",
   "unLeash",
-  "unique",
-  "effortless",
-  "your",
-  "enter",
-  "unleashAlgo",
+  //"unique",
+  // "effortless",
+  //"your",
+  //"enter",
+  //"unleashAlgo",
 ];
 
 export default function Phone() {
@@ -36,32 +36,9 @@ export default function Phone() {
     const scrolled = window.scrollY;
     const ratio = scrolled / totalScrollableHeight;
 
-    console.log(ratio);
+    // console.log(ratio);
 
     let locationNumeric: number = 0;
-    // if (ratio <= 0.045) {
-    //   locationNumeric = -4266.6 * ratio + 96;
-    // } else if (ratio > 0.045 && ratio <= 0.1365) {
-    //   locationNumeric = 3801.980198019801 * ratio - 422.9702970297028;
-    // } else if (ratio > 0.1365 && ratio <= 0.2272) {
-    //   locationNumeric = -4403.6697247706425 * ratio + 904.51376146789;
-    // } else if (ratio > 0.2272 && ratio <= 0.3185) {
-    //   locationNumeric = 4111.349036402568 * ratio - 1213.464668094218;
-    // } else if (ratio > 0.3185 && ratio <= 0.409) {
-    //   locationNumeric = -4111.349036402573 * ratio + 1585.5417558886522;
-    // } else if (ratio > 0.409 && ratio <= 0.5) {
-    //   locationNumeric = 4285.714285714285 * ratio - 2046.8571428571427;
-    // } else if (ratio > 0.5 && ratio <= 0.59) {
-    //   locationNumeric = -4257.206208425729 * ratio + 2415.75166297118;
-    // } else if (ratio > 0.59 && ratio <= 0.682) {
-    //   locationNumeric = 4229.074889867842 * ratio - 2788.2290748898686;
-    // } else if (ratio > 0.682 && ratio <= 0.772) {
-    //   locationNumeric = -4201.312910284457 * ratio + 3147.413566739601;
-    // } else if (ratio > 0.772 && ratio <= 0.8644) {
-    //   locationNumeric = 4111.349036402573 * ratio - 3457.8501070663838;
-    // } else if (ratio > 0.8644 && ratio <= 0.9553) {
-    //   locationNumeric = -3975.155279503105 * ratio + 3701.465838509316;
-    // }
 
     if (ratio <= 0.05) {
       locationNumeric = -4000 * ratio + 100;
@@ -97,6 +74,60 @@ export default function Phone() {
   return (
     <>
       {allTitles.map((t, i) => (
+        <Flex
+          id="anainami"
+          justify="center"
+          width="100%"
+          height="100%"
+          position={screenModeStateValue === "mobile" ? "fixed" : "absolute"}
+          p={screenModeStateValue === "mobile" ? "unset" : "5"}
+          ref={ref}
+          transform="auto"
+          transition={
+            screenModeStateValue === "mobile"
+              ? "all 100ms linear"
+              : "all 1s ease-in-out"
+          }
+          translateX={
+            screenModeStateValue === "mobile"
+              ? locationOfPhone
+              : inView
+              ? "0"
+              : "-100%"
+          }
+          rotate={
+            screenModeStateValue === "mobile"
+              ? "0deg"
+              : inView
+              ? "0deg"
+              : "-90deg"
+          }
+          scale={screenModeStateValue === "mobile" ? "1" : inView ? "1" : "1.1"}
+          zIndex={2}
+          pointerEvents="none"
+          userSelect="none"
+          key={i}
+          hidden={
+            screenModeStateValue === "mobile" ? titleNameState !== t : false
+          }
+          opacity={
+            screenModeStateValue === "mobile" ? 1 : titleNameState === t ? 1 : 0
+          }
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            style={{
+              height: "100%",
+            }}
+          >
+            <source src={`/videos/${t}.mp4`} type="video/mp4" />
+          </video>
+        </Flex>
+      ))}
+
+      {/* {allTitles.map((t, i) => (
         <Img
           ref={ref}
           key={i}
@@ -138,7 +169,7 @@ export default function Phone() {
           pointerEvents="none"
           userSelect="none"
         />
-      ))}
+      ))} */}
     </>
   );
 }
