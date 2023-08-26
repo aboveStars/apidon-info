@@ -1,6 +1,6 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { titleNamesStateAtom } from "@/atoms/sectionNumberStateAtom";
-import { Flex, Img, position } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
@@ -75,7 +75,6 @@ export default function Phone() {
     <>
       {allTitles.map((t, i) => (
         <Flex
-          id="anainami"
           justify="center"
           width="100%"
           height="100%"
@@ -121,6 +120,7 @@ export default function Phone() {
             style={{
               height: "100%",
             }}
+            playsInline
           >
             <source src={`/videos/${t}.mp4`} type="video/mp4" />
           </video>
