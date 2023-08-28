@@ -11,7 +11,7 @@ export default function UserSection() {
       />
       <Title
         title="Effortless Preference Flexibility"
-        description="Change is constant, including your preferences. Switch providers anytime. Your journey, your choices - we're here to empower."
+        description="Change is only constant, including your preferences. Switch providers anytime. Your journey, your choices - we're here to empower."
         titleName="effortless"
       />
       <Title

@@ -68,6 +68,7 @@ export default function Title({ title, description, titleName }: Props) {
           color: "black",
         }}
         maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
+        bg="black"
       >
         {description}
       </Text>

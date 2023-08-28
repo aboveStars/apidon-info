@@ -126,50 +126,6 @@ export default function Phone() {
           </video>
         </Flex>
       ))}
-
-      {/* {allTitles.map((t, i) => (
-        <Img
-          ref={ref}
-          key={i}
-          position={screenModeStateValue === "mobile" ? "fixed" : "absolute"}
-          // src={`/images/${t}.png`}
-          src="/videos/mobile.gif"
-          alt={t}
-          boxSize="100%"
-          p={screenModeStateValue === "mobile" ? "unset" : "5"}
-          objectFit="contain"
-          transform="auto"
-          transition={
-            screenModeStateValue === "mobile"
-              ? "all 100ms linear"
-              : "all 1s ease-in-out"
-          }
-          hidden={
-            screenModeStateValue === "mobile" ? titleNameState !== t : false
-          }
-          opacity={
-            screenModeStateValue === "mobile" ? 1 : titleNameState === t ? 1 : 0
-          }
-          translateX={
-            screenModeStateValue === "mobile"
-              ? locationOfPhone
-              : inView
-              ? "0"
-              : "-100%"
-          }
-          rotate={
-            screenModeStateValue === "mobile"
-              ? "0deg"
-              : inView
-              ? "0deg"
-              : "-90deg"
-          }
-          scale={screenModeStateValue === "mobile" ? "1" : inView ? "1" : "1.1"}
-          zIndex={2}
-          pointerEvents="none"
-          userSelect="none"
-        />
-      ))} */}
     </>
   );
 }
