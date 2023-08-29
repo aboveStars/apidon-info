@@ -1,6 +1,6 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { titleNamesStateAtom } from "@/atoms/sectionNumberStateAtom";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Img } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
@@ -8,9 +8,9 @@ import { useRecoilValue } from "recoil";
 const allTitles = [
   "theNext",
   "unLeash",
-  //"unique",
+  "unique",
   // "effortless",
-  //"your",
+  "your",
   //"enter",
   //"unleashAlgo",
 ];
@@ -71,6 +71,10 @@ export default function Phone() {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(Date.now());
+  }, []);
+
   return (
     <>
       {allTitles.map((t, i) => (
@@ -84,7 +88,7 @@ export default function Phone() {
           transform="auto"
           transition={
             screenModeStateValue === "mobile"
-              ? "all 100ms linear"
+              ? "all 150ms linear"
               : "all 1s ease-in-out"
           }
           translateX={
@@ -115,14 +119,14 @@ export default function Phone() {
         >
           <video
             autoPlay
-            loop
             muted
             style={{
               height: "100%",
             }}
             playsInline
+            loop={t !== "theNext"}
           >
-            <source src={`/videos/${t}.mp4`} type="video/mp4" />
+            <source src={`/videos/${t}.mp4`} />
           </video>
         </Flex>
       ))}
