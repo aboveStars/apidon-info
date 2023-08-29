@@ -2,7 +2,7 @@ import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import {
   titleNames,
   titleNamesStateAtom,
-} from "@/atoms/sectionNumberStateAtom";
+} from "@/atoms/titleNameStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";

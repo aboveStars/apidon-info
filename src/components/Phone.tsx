@@ -1,5 +1,5 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
-import { titleNamesStateAtom } from "@/atoms/sectionNumberStateAtom";
+import { titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
 import { Flex, Img } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -13,6 +13,13 @@ const allTitles = [
   "your",
   //"enter",
   //"unleashAlgo",
+];
+
+const videoSources = [
+  process.env.NEXT_PUBLIC_THENEXT_URL,
+  process.env.NEXT_PUBLIC_UNLEASH_URL,
+  process.env.NEXT_PUBLIC_UNIQUE_URL,
+  process.env.NEXT_PUBLIC_YOUR_URL,
 ];
 
 export default function Phone() {
@@ -122,7 +129,7 @@ export default function Phone() {
             playsInline
             loop={t !== "theNext"}
           >
-            <source src={`/videos/${t}.mp4`} />
+            <source src={videoSources[allTitles.indexOf(t)]} />
           </video>
         </Flex>
       ))}
