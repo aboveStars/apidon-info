@@ -71,10 +71,6 @@ export default function Phone() {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(Date.now());
-  }, []);
-
   return (
     <>
       {allTitles.map((t, i) => (
