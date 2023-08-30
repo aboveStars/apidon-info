@@ -1,6 +1,6 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
-import { Flex, Img } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
@@ -9,9 +9,8 @@ const allTitles = [
   "theNext",
   "unLeash",
   "unique",
-  // "effortless",
   "your",
-  //"enter",
+  "enter",
   //"unleashAlgo",
 ];
 
@@ -20,6 +19,7 @@ const videoSources = [
   process.env.NEXT_PUBLIC_UNLEASH_URL,
   process.env.NEXT_PUBLIC_UNIQUE_URL,
   process.env.NEXT_PUBLIC_YOUR_URL,
+  process.env.NEXT_PUBLIC_ENTER_URL,
 ];
 
 export default function Phone() {

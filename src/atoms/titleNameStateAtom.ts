@@ -6,7 +6,6 @@ export type titleNames =
   | "theNext"
   | "unLeash"
   | "unique"
-  | "effortless"
   | "your"
   | "enter"
   | "unleashAlgo";

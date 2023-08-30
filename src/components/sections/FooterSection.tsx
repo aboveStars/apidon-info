@@ -18,6 +18,7 @@ export default function FooterSection() {
       transition="1s transform ease-in-out"
       px={screenModeStateValue === "mobile" ? "unset" : "20"}
       zIndex={1}
+
     >
       <Text
         fontWeight="extrabold"

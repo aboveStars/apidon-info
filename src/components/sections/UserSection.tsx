@@ -9,11 +9,7 @@ export default function UserSection() {
         description="Choose from diverse algorithm creators who craft tailored experiences, shaping your feed to amplify what matters to you."
         titleName="unLeash"
       />
-      <Title
-        title="Effortless Preference Flexibility"
-        description="Change is only constant, including your preferences. Switch providers anytime. Your journey, your choices - we're here to empower."
-        titleName="effortless"
-      />
+     
       <Title
         title="Unique Engagement Rewards"
         description="Your data is precious. We value your actions and insights that shape your digital world. Get monthly crypto rewards for your contributions."
