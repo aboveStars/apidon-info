@@ -56,7 +56,6 @@ export default function Layout() {
             id="small-screen"
             hidden={screenModeState === "large"}
             direction="column"
-            px={5}
           >
             <Phone />
             <WelcomeSection />

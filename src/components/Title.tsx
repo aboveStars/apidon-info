@@ -32,7 +32,7 @@ export default function Title({ title, description, titleName }: Props) {
       transform="auto"
       scale={inView ? 1 : 0}
       transition="1s transform ease-in-out"
-      px={screenModeStateValue === "mobile" ? "unset" : "20"}
+      px={screenModeStateValue === "mobile" ? "5" : "20"}
       zIndex={1}
     >
       <Text

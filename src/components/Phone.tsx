@@ -30,31 +30,33 @@ export default function Phone() {
     const scrolled = window.scrollY;
     const ratio = scrolled / totalScrollableHeight;
 
-    // console.log(ratio);
-
     let locationNumeric: number = 0;
 
-    if (ratio <= 0.05) {
-      locationNumeric = -4000 * ratio + 100;
-    } else if (ratio <= 0.15) {
-      locationNumeric = 4000.000000000001 * ratio - 500.0000000000001;
+    if (ratio <= 0.084) {
+      locationNumeric = -2380.9523809523807 * ratio + 100;
     } else if (ratio <= 0.25) {
-      locationNumeric = -4000.000000000001 * ratio + 900.0000000000002;
-    } else if (ratio <= 0.35) {
-      locationNumeric = 4000.000000000001 * ratio - 1300.0000000000002;
-    } else if (ratio <= 0.45) {
-      locationNumeric = -4000.000000000001 * ratio + 1700.0000000000005;
-    } else if (ratio <= 0.55) {
-      locationNumeric = 3999.9999999999964 * ratio - 2099.999999999998;
-    } else if (ratio <= 0.6875) {
-      locationNumeric = -3252.032520325203 * ratio + 2135.7723577235774;
+      locationNumeric = 2409.6385542168678 * ratio - 502.40963855421694;
+    } else if (ratio <= 0.417) {
+      locationNumeric = -2439.024390243904 * ratio + 917.0731707317078;
+    } else if (ratio <= 0.583) {
+      locationNumeric = 2597.402597402599 * ratio - 1414.2857142857151;
+    } else if (ratio <= 0.75) {
+      locationNumeric = -2298.8505747126446 * ratio + 1624.1379310344835;
+    } else if (ratio <= 0.917) {
+      locationNumeric = 2597.402597402595 * ratio - 2281.8181818181797;
     } else {
-      locationNumeric = 100;
+      locationNumeric = 101;
     }
 
     const location = `${locationNumeric}%`;
 
+    const opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
+
+    console.log("opacity: ", opacityNumeric);
+
     setLocationOfPhone(location);
+    setOpacity(opacityNumeric);
+    //setLocationOfPhone("100%");
   };
 
   useEffect(() => {
@@ -104,7 +106,11 @@ export default function Phone() {
             screenModeStateValue === "mobile" ? titleNameState !== t : false
           }
           opacity={
-            screenModeStateValue === "mobile" ? 1 : titleNameState === t ? 1 : 0
+            screenModeStateValue === "mobile"
+              ? opacity
+              : titleNameState === t
+              ? 1
+              : 0
           }
         >
           <video
