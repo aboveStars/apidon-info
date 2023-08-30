@@ -1,28 +1,13 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
-import { titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
+import {
+  titleNamesStateAtom,
+  titles,
+  videoSources,
+} from "@/atoms/titleNameStateAtom";
 import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useRecoilValue } from "recoil";
-
-
-const allTitles = [
-  "theNext",
-  "unLeash",
-  "unique",
-  "your",
-  "enter",
-  "unleashAlgo",
-];
-
-const videoSources = [
-  process.env.NEXT_PUBLIC_THENEXT_URL,
-  process.env.NEXT_PUBLIC_UNLEASH_URL,
-  process.env.NEXT_PUBLIC_UNIQUE_URL,
-  process.env.NEXT_PUBLIC_YOUR_URL,
-  process.env.NEXT_PUBLIC_ENTER_URL,
-  process.env.NEXT_PUBLIC_UNLEASHALGO_URL,
-];
 
 export default function Phone() {
   const titleNameState = useRecoilValue(titleNamesStateAtom);
@@ -82,7 +67,7 @@ export default function Phone() {
 
   return (
     <>
-      {allTitles.map((t, i) => (
+      {titles.map((t, i) => (
         <Flex
           justify="center"
           width="100%"
@@ -129,9 +114,9 @@ export default function Phone() {
               height: "100%",
             }}
             playsInline
-            loop={t !== "theNext"}
+            loop={t !== "welcome"}
           >
-            <source src={videoSources[allTitles.indexOf(t)]} />
+            <source src={videoSources[t]} />
           </video>
         </Flex>
       ))}

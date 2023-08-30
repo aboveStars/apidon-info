@@ -28,16 +28,12 @@ export default function Layout() {
     setScreenModeState(isMobile ? "mobile" : "large");
   }, [isMobile]);
 
-  useEffect(() => {
-    scrollTo(0, 0);
-  }, []);
-
   return (
     <>
       {bgEngineState.backgroundInitialized ? (
         <>
           <Flex id="lg-screen" hidden={screenModeState === "mobile"}>
-            <Box flex="1" zIndex="1">
+            <Box flex="1" zIndex="1" minHeight="100vh">
               <WelcomeSection />
               <UserSection />
               <NFTSection />
