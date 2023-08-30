@@ -11,7 +11,7 @@ const allTitles = [
   "unique",
   "your",
   "enter",
-  //"unleashAlgo",
+  "unleashAlgo",
 ];
 
 const videoSources = [
@@ -20,6 +20,7 @@ const videoSources = [
   process.env.NEXT_PUBLIC_UNIQUE_URL,
   process.env.NEXT_PUBLIC_YOUR_URL,
   process.env.NEXT_PUBLIC_ENTER_URL,
+  process.env.NEXT_PUBLIC_UNLEASHALGO_URL,
 ];
 
 export default function Phone() {
