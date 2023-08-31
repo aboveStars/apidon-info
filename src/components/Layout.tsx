@@ -1,11 +1,12 @@
 import { backgroundEngineStateAtom } from "@/atoms/backgroundEngineStateAtom";
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
+import { videosAreReadyStateAtom } from "@/atoms/videosAreReadyStateAtom";
 import { Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import Phone from "./Phone";
 import FooterSection from "./sections/FooterSection";
 import NFTSection from "./sections/NFTSection";
+import PhoneSection from "./sections/PhoneSection";
 import ProviderSection from "./sections/ProviderSection";
 import UserSection from "./sections/UserSection";
 import WelcomeSection from "./sections/WelcomeSection";
@@ -21,6 +22,8 @@ export default function Layout() {
   });
 
   const bgEngineState = useRecoilValue(backgroundEngineStateAtom);
+  const videosAreReadyState = useRecoilValue(videosAreReadyStateAtom);
+
   const [screenModeState, setScreenModeState] =
     useRecoilState(screenModStateAtom);
 
@@ -32,8 +35,16 @@ export default function Layout() {
     <>
       {bgEngineState.backgroundInitialized ? (
         <>
-          <Flex id="lg-screen" hidden={screenModeState === "mobile"}>
-            <Box flex="1" zIndex="1" minHeight="100vh">
+          <Flex
+            id="lg-screen"
+            display={screenModeState === "mobile" ? "none" : "flex"}
+          >
+            <Box
+              flex="1"
+              zIndex="1"
+              minHeight="100vh"
+              hidden={!videosAreReadyState}
+            >
               <WelcomeSection />
               <UserSection />
               <NFTSection />
@@ -47,17 +58,18 @@ export default function Layout() {
               top={0}
               right={0}
               zIndex="1"
+              hidden={!videosAreReadyState}
             >
-              <Phone />
+              <PhoneSection />
             </Box>
           </Flex>
 
           <Flex
             id="small-screen"
-            hidden={screenModeState === "large"}
+            display={screenModeState === "mobile" ? "flex" : "none"}
             direction="column"
           >
-            <Phone />
+            <PhoneSection />
             <WelcomeSection />
             <UserSection />
             <NFTSection />
