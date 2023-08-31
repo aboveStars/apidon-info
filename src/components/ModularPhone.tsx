@@ -27,6 +27,24 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    if (titleNameState !== title) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+  }, [titleNameState]);
+
   const handleScroll = () => {
     if (screenModeStateValue !== "mobile") return;
     const windowHeight = window.innerHeight;
@@ -38,17 +56,17 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
     let locationNumeric: number = 0;
 
     if (ratio <= 0.084) {
-      locationNumeric = -2380.9523809523807 * ratio + 100;
+      locationNumeric = -2381 * ratio + 100;
     } else if (ratio <= 0.25) {
-      locationNumeric = 2409.6385542168678 * ratio - 502.40963855421694;
+      locationNumeric = 2410 * ratio - 502;
     } else if (ratio <= 0.417) {
-      locationNumeric = -2439.024390243904 * ratio + 917.0731707317078;
+      locationNumeric = -2439 * ratio + 917;
     } else if (ratio <= 0.583) {
-      locationNumeric = 2597.402597402599 * ratio - 1414.2857142857151;
+      locationNumeric = 2597 * ratio - 1414;
     } else if (ratio <= 0.75) {
-      locationNumeric = -2298.8505747126446 * ratio + 1624.1379310344835;
+      locationNumeric = -2299 * ratio + 1624;
     } else if (ratio <= 0.917) {
-      locationNumeric = 2597.402597402595 * ratio - 2281.8181818181797;
+      locationNumeric = 2597 * ratio - 2282;
     } else {
       locationNumeric = 101;
     }
@@ -59,31 +77,18 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
 
     setLocationOfPhone(location);
     setOpacity(opacityNumeric);
-    //setLocationOfPhone("100%");
   };
-
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (title === "welcome") return;
-    if (!videoRef.current) return;
-
-    if (titleNameState !== title) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-    }
-  }, [titleNameState]);
 
   return (
     <>
       <Flex
+        display={
+          screenModeStateValue === "large"
+            ? "flex"
+            : title === titleNameState
+            ? "flex"
+            : "none"
+        }
         ref={ref}
         justify="center"
         width="100%"
@@ -117,9 +122,6 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
             ? "1.1"
             : "1"
         }
-        hidden={
-          screenModeStateValue === "mobile" ? title !== titleNameState : false
-        }
         opacity={
           screenModeStateValue === "mobile"
             ? opacity
@@ -138,9 +140,8 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
             height: "100%",
           }}
           playsInline
-          loop={title !== "welcome"}
-          autoPlay={title === "welcome"}
           onCanPlayThrough={onCanPlayThrough}
+          loop={title !== "welcome"}
         >
           <source src={videoSources[title]} />
         </video>
