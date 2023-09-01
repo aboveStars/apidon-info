@@ -41,12 +41,21 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
     if (titleNameState !== title) {
       videoRef.current.pause();
     } else {
-      videoRef.current.play();
+      handlePlayVideo(videoRef.current)
     }
   }, [titleNameState]);
 
+  const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
+    try {
+      await videoRefCurrent.play();
+    } catch (error) {
+      // not important.
+    }
+  };
+
   const handleScroll = () => {
     if (screenModeStateValue !== "mobile") return;
+
     const windowHeight = window.innerHeight;
     const totalScrollableHeight =
       document.documentElement.scrollHeight - windowHeight;
@@ -68,12 +77,13 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
     } else if (ratio <= 0.917) {
       locationNumeric = 2597 * ratio - 2282;
     } else {
-      locationNumeric = 101;
+      locationNumeric = 100;
     }
 
     const location = `${locationNumeric}%`;
-
     const opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
+
+    if (Math.abs(locationNumeric) > 100) return;
 
     setLocationOfPhone(location);
     setOpacity(opacityNumeric);
@@ -82,13 +92,6 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
   return (
     <>
       <Flex
-        display={
-          screenModeStateValue === "large"
-            ? "flex"
-            : title === titleNameState
-            ? "flex"
-            : "none"
-        }
         ref={ref}
         justify="center"
         width="100%"
