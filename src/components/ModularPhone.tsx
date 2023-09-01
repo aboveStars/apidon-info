@@ -41,7 +41,7 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
     if (titleNameState !== title) {
       videoRef.current.pause();
     } else {
-      handlePlayVideo(videoRef.current)
+      handlePlayVideo(videoRef.current);
     }
   }, [titleNameState]);
 
@@ -65,19 +65,19 @@ export default function ModularPhone({ title, onCanPlayThrough }: Props) {
     let locationNumeric: number = 0;
 
     if (ratio <= 0.084) {
-      locationNumeric = -2381 * ratio + 100;
+      locationNumeric = -2380.9523809523807 * ratio + 100;
     } else if (ratio <= 0.25) {
-      locationNumeric = 2410 * ratio - 502;
+      locationNumeric = 2409.6385542168678 * ratio - 502.40963855421694;
     } else if (ratio <= 0.417) {
-      locationNumeric = -2439 * ratio + 917;
+      locationNumeric = -2439.024390243904 * ratio + 917.0731707317078;
     } else if (ratio <= 0.583) {
-      locationNumeric = 2597 * ratio - 1414;
+      locationNumeric = 2597.402597402599 * ratio - 1414.2857142857151;
     } else if (ratio <= 0.75) {
-      locationNumeric = -2299 * ratio + 1624;
+      locationNumeric = -2298.8505747126446 * ratio + 1624.1379310344835;
     } else if (ratio <= 0.917) {
-      locationNumeric = 2597 * ratio - 2282;
+      locationNumeric = 2597.402597402595 * ratio - 2281.8181818181797;
     } else {
-      locationNumeric = 100;
+      locationNumeric = 101;
     }
 
     const location = `${locationNumeric}%`;
