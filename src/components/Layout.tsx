@@ -5,9 +5,10 @@ import { Box, Center, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import FooterSection from "./sections/FooterSection";
+import LargePhoneSection from "./sections/LargePhoneSection";
 import NFTSection from "./sections/NFTSection";
-import PhoneSection from "./sections/PhoneSection";
 import ProviderSection from "./sections/ProviderSection";
+import SmallPhoneSection from "./sections/SmallPhoneSection";
 import UserSection from "./sections/UserSection";
 import WelcomeSection from "./sections/WelcomeSection";
 
@@ -64,12 +65,12 @@ export default function Layout() {
                 zIndex="1"
                 hidden={!videosAreReadyState}
               >
-                <PhoneSection />
+                <LargePhoneSection />
               </Box>
             </Flex>
           ) : (
             <Flex id="small-screen" direction="column">
-              <PhoneSection />
+              <SmallPhoneSection />
               <WelcomeSection />
               <UserSection />
               <NFTSection />
