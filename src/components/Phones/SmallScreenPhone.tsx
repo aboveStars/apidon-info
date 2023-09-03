@@ -39,6 +39,23 @@ export default function SmallScreenPhone({ title }: Props) {
     }
   }, [titleNameStateValue]);
 
+  useEffect(() => {
+    // Add an event listener for visualViewport changes
+    window.visualViewport?.addEventListener("resize", handleViewportChange);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.visualViewport?.removeEventListener(
+        "resize",
+        handleViewportChange
+      );
+    };
+  }, []); // Empty dependency array means this effect runs only on mount and unmount
+
+  const handleViewportChange = () => {
+    setViewportHeight(`${window.visualViewport?.height}px`);
+  };
+
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
     try {
       await videoRefCurrent.play();
@@ -48,10 +65,10 @@ export default function SmallScreenPhone({ title }: Props) {
   };
 
   const handleScroll = () => {
-    setViewportHeight(`${visualViewport?.height}px`);
     const windowHeight = window.innerHeight;
     const totalScrollableHeight =
       document.documentElement.scrollHeight - windowHeight;
+
     const scrolled = window.scrollY;
     const ratio = scrolled / totalScrollableHeight;
 
@@ -89,7 +106,7 @@ export default function SmallScreenPhone({ title }: Props) {
       height={viewportHeight}
       position="fixed"
       transform="auto"
-      transitionDuration="50ms,100ms"
+      transitionDuration="50ms,200ms"
       translateX={locationOfPhone}
       transitionProperty="transform, height"
       transitionTimingFunction="linear"

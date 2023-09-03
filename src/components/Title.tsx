@@ -31,7 +31,9 @@ export default function Title({ title, description, titleName }: Props) {
       gap="5"
       transform="auto"
       scale={inView ? 1 : 0}
-      transition="1s transform ease-in-out"
+      transitionDuration="1s"
+      transitionTimingFunction="linear"
+      transitionProperty="transform"
       px={screenModeStateValue === "mobile" ? "5" : "20"}
       zIndex={1}
     >
