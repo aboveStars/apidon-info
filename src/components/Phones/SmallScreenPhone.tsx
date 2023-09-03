@@ -39,12 +39,6 @@ export default function SmallScreenPhone({ title }: Props) {
     }
   }, [titleNameStateValue]);
 
-  useEffect(() => {
-    if (!videoRef.current) return;
-
-    videoRef.current.setAttribute("muted", "1");
-  }, []);
-
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
     try {
       await videoRefCurrent.play();
@@ -95,9 +89,9 @@ export default function SmallScreenPhone({ title }: Props) {
       height={viewportHeight}
       position="fixed"
       transform="auto"
-      transitionDuration="150ms,150ms,300ms"
+      transitionDuration="50ms,100ms"
       translateX={locationOfPhone}
-      transitionProperty="transform, opacity, height"
+      transitionProperty="transform, height"
       transitionTimingFunction="linear"
       opacity={opacity}
       userSelect="none"
