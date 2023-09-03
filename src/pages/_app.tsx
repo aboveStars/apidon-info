@@ -1,4 +1,3 @@
-import StarsAnimatedBg from "@/animatedBg/StarsAnimatedBg";
 import { theme } from "@/theme/theme";
 import { ChakraBaseProvider } from "@chakra-ui/react";
 import { Analytics } from "@vercel/analytics/react";
@@ -12,7 +11,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <RecoilRoot>
         <ChakraBaseProvider theme={theme}>
           <Component {...pageProps} />
-          <StarsAnimatedBg />
         </ChakraBaseProvider>
       </RecoilRoot>
     </>

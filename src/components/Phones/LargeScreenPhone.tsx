@@ -54,7 +54,6 @@ export default function LargeScreenPhone({ title, onCanPlayThrough }: Props) {
       rotate={title === "welcome" && !inView ? "-90deg" : "0deg"}
       scale={title === "welcome" && !inView ? "1.1" : "1"}
       opacity={titleNameState === title ? 1 : 0}
-      zIndex={2}
       userSelect="none"
       pointerEvents="none"
     >

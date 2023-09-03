@@ -1,6 +1,11 @@
-import { titleNames, videoSources } from "@/atoms/titleNameStateAtom";
+import {
+  titleNames,
+  titleNamesStateAtom,
+  videoSources,
+} from "@/atoms/titleNameStateAtom";
 import { Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 type Props = {
   title: titleNames;
@@ -12,6 +17,10 @@ export default function SmallScreenPhone({ title }: Props) {
 
   const [viewportHeight, setViewportHeight] = useState("0px");
 
+  const titleNameStateValue = useRecoilValue(titleNamesStateAtom);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
@@ -19,6 +28,30 @@ export default function SmallScreenPhone({ title }: Props) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    if (titleNameStateValue !== title) {
+      videoRef.current.pause();
+    } else {
+      handlePlayVideo(videoRef.current);
+    }
+  }, [titleNameStateValue]);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    videoRef.current.setAttribute("muted", "1");
+  }, []);
+
+  const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
+    try {
+      await videoRefCurrent.play();
+    } catch (error) {
+      // not important.
+    }
+  };
 
   const handleScroll = () => {
     setViewportHeight(`${visualViewport?.height}px`);
@@ -61,31 +94,18 @@ export default function SmallScreenPhone({ title }: Props) {
       width="100%"
       height={viewportHeight}
       position="fixed"
-      style={{
-        transform: `translate(${locationOfPhone})`,
-        msTransform: `translate(${locationOfPhone})`,
-        WebkitTransform: `translate(${locationOfPhone})`,
-
-        transitionDuration: "200ms,200ms,500ms",
-        msTransitionDuration: "200ms,200ms,500ms",
-        MozTransitionDuration: "200ms,200ms,500ms",
-        WebkitTransitionDuration: "200ms,200ms,500ms",
-
-        transitionProperty: "transform, opacity, height",
-        msTransitionProperty: "transform, opacity, height",
-        MozTransitionProperty: "transform, opacity, height",
-        WebkitTransitionProperty: "transform, opacity, height",
-
-        transitionTimingFunction: "linear",
-        msTransitionTimingFunction: "linear",
-        MozTransitionTimingFunction: "linear",
-        WebkitTransitionTimingFunction: "linear",
-      }}
+      transform="auto"
+      transitionDuration="150ms,150ms,300ms"
+      translateX={locationOfPhone}
+      transitionProperty="transform, opacity, height"
+      transitionTimingFunction="linear"
       opacity={opacity}
-      zIndex={2}
       userSelect="none"
+      hidden={title !== titleNameStateValue}
+      zIndex={2}
     >
       <video
+        ref={videoRef}
         muted
         style={{
           height: "100%",
@@ -94,7 +114,8 @@ export default function SmallScreenPhone({ title }: Props) {
         loop={title !== "welcome"}
         autoPlay
       >
-        <source src={videoSources[title]} />
+        <source src={videoSources[title]} type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
     </Flex>
   );
