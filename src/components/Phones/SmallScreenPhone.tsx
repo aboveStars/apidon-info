@@ -65,6 +65,8 @@ export default function SmallScreenPhone({ title }: Props) {
   };
 
   const handleScroll = () => {
+    handleViewportChange();
+
     const windowHeight = window.innerHeight;
     const totalScrollableHeight =
       document.documentElement.scrollHeight - windowHeight;
@@ -91,7 +93,9 @@ export default function SmallScreenPhone({ title }: Props) {
     }
 
     const location = `${locationNumeric}%`;
-    const opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
+    let opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
+
+    if (opacityNumeric < 0) opacityNumeric = 0;
 
     if (Math.abs(locationNumeric) > 100) return;
 

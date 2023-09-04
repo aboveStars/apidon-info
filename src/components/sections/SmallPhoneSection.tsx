@@ -5,7 +5,7 @@ export default function SmallPhoneSection() {
   return (
     <>
       {titles.map((t, i) => (
-        <SmallScreenPhone title={t} key={i} />
+        <SmallScreenPhone title={t} key={`${t}-${i}`} />
       ))}
     </>
   );

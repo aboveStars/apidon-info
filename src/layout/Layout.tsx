@@ -12,7 +12,6 @@ export default function Layout() {
     md: true,
     lg: false,
     xl: false,
-    "2xl": false,
   });
 
   const [screenModeState, setScreenModeState] =
@@ -22,13 +21,5 @@ export default function Layout() {
     setScreenModeState(isMobile ? "mobile" : "large");
   }, [isMobile]);
 
-  return (
-    <>
-      {screenModeState === "large" ? (
-        <LargeScreenLayout />
-      ) : (
-        <SmallScreenLayout />
-      )}
-    </>
-  );
+  return <>{isMobile ? <SmallScreenLayout /> : <LargeScreenLayout />}</>;
 }
