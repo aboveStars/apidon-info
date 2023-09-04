@@ -3,13 +3,15 @@ import {
   titleNamesStateAtom,
   videoSources,
 } from "@/atoms/titleNameStateAtom";
-import { Flex } from "@chakra-ui/react";
+import { Flex, transition } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 type Props = {
   title: titleNames;
 };
+
+import { motion, animationControls, useAnimation } from "framer-motion";
 
 export default function SmallScreenPhone({ title }: Props) {
   const [locationOfPhone, setLocationOfPhone] = useState("100%");
@@ -20,6 +22,8 @@ export default function SmallScreenPhone({ title }: Props) {
   const titleNameStateValue = useRecoilValue(titleNamesStateAtom);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const animationControls = useAnimation();
 
   useEffect(() => {
     handleScroll();
@@ -99,26 +103,30 @@ export default function SmallScreenPhone({ title }: Props) {
 
     if (Math.abs(locationNumeric) > 100) return;
 
+    animationControls.start({
+      x: location,
+      transition: {
+        duration: "50ms",
+        damping: "10",
+      },
+    });
+
     setLocationOfPhone(location);
     setOpacity(opacityNumeric);
   };
 
   return (
-    <Flex
-      justify="center"
-      width="100%"
-      height={viewportHeight}
-      position="fixed"
-      willChange="transform"
-      transform="auto"
-      transitionDuration="50ms,200ms"
-      translateX={locationOfPhone}
-      transitionProperty="transform, height"
-      transitionTimingFunction="linear"
-      opacity={opacity}
-      userSelect="none"
+    <motion.div
+      animate={animationControls}
       hidden={title !== titleNameStateValue}
-      zIndex={2}
+      style={{
+        width: "100%",
+        height: viewportHeight,
+        position: "fixed",
+        zIndex: 2,
+        opacity: opacity,
+        
+      }}
     >
       <video
         ref={videoRef}
@@ -133,6 +141,36 @@ export default function SmallScreenPhone({ title }: Props) {
         <source src={videoSources[title]} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-    </Flex>
+    </motion.div>
+    // <Flex
+    //   justify="center"
+    //   width="100%"
+    //   height={viewportHeight}
+    //   position="fixed"
+    //   willChange="transform"
+    //   transform="auto"
+    //   transitionDuration="50ms,200ms"
+    //   translateX={locationOfPhone}
+    //   transitionProperty="transform, height"
+    //   transitionTimingFunction="linear"
+    //   opacity={opacity}
+    //   userSelect="none"
+    //   hidden={title !== titleNameStateValue}
+    //   zIndex={2}
+    // >
+    //   <video
+    //     ref={videoRef}
+    //     muted
+    //     style={{
+    //       height: "100%",
+    //     }}
+    //     playsInline
+    //     loop={title !== "welcome"}
+    //     autoPlay
+    //   >
+    //     <source src={videoSources[title]} type="video/mp4" />
+    //     Your browser does not support the video tag.
+    //   </video>
+    // </Flex>
   );
 }
