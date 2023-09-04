@@ -109,6 +109,7 @@ export default function SmallScreenPhone({ title }: Props) {
       width="100%"
       height={viewportHeight}
       position="fixed"
+      willChange="transform,opacity"
       transform="auto"
       transitionDuration="50ms,200ms"
       translateX={locationOfPhone}
