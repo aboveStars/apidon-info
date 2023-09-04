@@ -34,7 +34,6 @@ export default function Title({ title, description, titleName }: Props) {
       transitionDuration="1s"
       transitionTimingFunction="linear"
       transitionProperty="transform"
-      willChange="transform"
       px={screenModeStateValue === "mobile" ? "5" : "20"}
       zIndex={1}
     >
