@@ -10,7 +10,7 @@ import React from "react";
 export default function SmallScreenLayout() {
   return (
     <Flex id="small-screen" direction="column">
-      <Image src="/bgForMobile.png" position="fixed" objectFit="fill" />
+      <Image src="/bgForMobile.png" height="100vh" width="100%"  position="fixed" objectFit="fill"/>
       <SmallPhoneSection />
       <WelcomeSection />
       <UserSection />
