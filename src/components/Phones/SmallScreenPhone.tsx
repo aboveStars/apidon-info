@@ -6,14 +6,9 @@ import { useRecoilValue } from "recoil";
 type Props = {
   title: titleNames;
   videoURL: string;
-  onCanPlayThrough: () => void;
 };
 
-export default function SmallScreenPhone({
-  title,
-  videoURL,
-  onCanPlayThrough,
-}: Props) {
+export default function SmallScreenPhone({ title, videoURL }: Props) {
   const [opacity, setOpacity] = useState(0);
   const [viewportHeight, setViewportHeight] = useState("0px");
   const titleNameStateValue = useRecoilValue(titleNamesStateAtom);
@@ -133,9 +128,6 @@ export default function SmallScreenPhone({
         }}
         playsInline
         loop={title !== "welcome"}
-        autoPlay
-        onLoadedMetadata={onCanPlayThrough}
-        preload="metadata"
       >
         <source src={videoURL} type="video/mp4" />
         Your browser does not support the video tag.

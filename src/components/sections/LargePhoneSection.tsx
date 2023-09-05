@@ -23,8 +23,6 @@ export default function LargePhoneSection() {
 
   const setVideosAreReady = useSetRecoilState(videosAreReadyStateAtom);
 
-  const [time, setTime] = useState("");
-
   useEffect(() => {
     const allVideosAreReady = Object.values(
       videosCanBePlayedThroughDatabase
@@ -33,18 +31,14 @@ export default function LargePhoneSection() {
     setVideosAreReady(allVideosAreReady);
   }, [videosCanBePlayedThroughDatabase]);
 
-  useEffect(() => {
-    setTime(Date.now().toString());
-  }, []);
-
   return (
     <>
       {titles.map((t, i) => (
         <LargeScreenPhone
           title={t}
-          key={`${t}-${i}-${time}`}
+          key={`${t}-${i}-large`}
           onCanPlayThrough={() => handleVideoCanBePlayedThrough(t)}
-          videoURL={`${videoSources[t]}&t=${time}`}
+          videoURL={videoSources[t] as string}
         />
       ))}
     </>

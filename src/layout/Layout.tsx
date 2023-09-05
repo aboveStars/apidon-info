@@ -1,7 +1,7 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { useBreakpointValue } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import LargeScreenLayout from "./LargeScreenLayout";
 import SmallScreenLayout from "./SmallScreenLayout";
 
@@ -14,8 +14,7 @@ export default function Layout() {
     xl: false,
   });
 
-  const [screenModeState, setScreenModeState] =
-    useRecoilState(screenModStateAtom);
+  const setScreenModeState = useSetRecoilState(screenModStateAtom);
 
   useEffect(() => {
     setScreenModeState(isMobile ? "mobile" : "large");
