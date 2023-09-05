@@ -133,8 +133,9 @@ export default function SmallScreenPhone({
         }}
         playsInline
         loop={title !== "welcome"}
-        onCanPlayThrough={onCanPlayThrough}
-        preload="auto"
+        autoPlay
+        onLoadedMetadata={onCanPlayThrough}
+        preload="metadata"
       >
         <source src={videoURL} type="video/mp4" />
         Your browser does not support the video tag.
