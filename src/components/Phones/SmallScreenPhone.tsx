@@ -1,17 +1,19 @@
-import {
-  titleNames,
-  titleNamesStateAtom,
-  videoSources,
-} from "@/atoms/titleNameStateAtom";
+import { titleNames, titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
+import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { motion, useAnimationControls } from "framer-motion";
 
 type Props = {
   title: titleNames;
+  videoURL: string;
+  onCanPlayThrough: () => void;
 };
 
-export default function SmallScreenPhone({ title }: Props) {
+export default function SmallScreenPhone({
+  title,
+  videoURL,
+  onCanPlayThrough,
+}: Props) {
   const [opacity, setOpacity] = useState(0);
   const [viewportHeight, setViewportHeight] = useState("0px");
   const titleNameStateValue = useRecoilValue(titleNamesStateAtom);
@@ -37,6 +39,7 @@ export default function SmallScreenPhone({ title }: Props) {
   }, [titleNameStateValue]);
 
   useEffect(() => {
+    handleViewportChange();
     // Add an event listener for visualViewport changes
     window.visualViewport?.addEventListener("resize", handleViewportChange);
 
@@ -112,9 +115,9 @@ export default function SmallScreenPhone({ title }: Props) {
         width: "100%",
         height: viewportHeight,
         position: "fixed",
-        zIndex: 2,
         userSelect: "none",
         opacity: opacity,
+        zIndex: 2,
       }}
       animate={animatonControls}
       initial={{
@@ -130,9 +133,10 @@ export default function SmallScreenPhone({ title }: Props) {
         }}
         playsInline
         loop={title !== "welcome"}
-        autoPlay
+        onCanPlayThrough={onCanPlayThrough}
+        preload="auto"
       >
-        <source src={videoSources[title]} type="video/mp4" />
+        <source src={videoURL} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </motion.div>

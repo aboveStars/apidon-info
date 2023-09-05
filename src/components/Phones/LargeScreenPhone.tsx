@@ -1,7 +1,6 @@
 import {
   titleNames,
-  titleNamesStateAtom,
-  videoSources,
+  titleNamesStateAtom
 } from "@/atoms/titleNameStateAtom";
 import { Flex } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
@@ -12,9 +11,14 @@ import { useRecoilValue } from "recoil";
 type Props = {
   title: titleNames;
   onCanPlayThrough: () => void;
+  videoURL: string;
 };
 
-export default function LargeScreenPhone({ title, onCanPlayThrough }: Props) {
+export default function LargeScreenPhone({
+  title,
+  onCanPlayThrough,
+  videoURL,
+}: Props) {
   const titleNameState = useRecoilValue(titleNamesStateAtom);
 
   const ref = useRef(null);
@@ -68,7 +72,7 @@ export default function LargeScreenPhone({ title, onCanPlayThrough }: Props) {
         onCanPlayThrough={onCanPlayThrough}
         loop={title !== "welcome"}
       >
-        <source src={videoSources[title]} />
+        <source src={videoURL} />
       </video>
     </Flex>
   );
