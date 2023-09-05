@@ -1,8 +1,8 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { titleNames, titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import { useEffect, useRef } from "react";
+import { useInView } from "framer-motion";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 type Props = {
@@ -13,7 +13,9 @@ type Props = {
 
 export default function Title({ title, description, titleName }: Props) {
   const setTitleNameState = useSetRecoilState(titleNamesStateAtom);
-  const [ref, inView] = useInView();
+
+  const ref = useRef(null);
+  const inView = useInView(ref);
 
   const screenModeStateValue = useRecoilValue(screenModStateAtom);
 

@@ -3,27 +3,20 @@ import {
   titleNamesStateAtom,
   videoSources,
 } from "@/atoms/titleNameStateAtom";
-import { Flex, transition } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
+import { motion, useAnimationControls } from "framer-motion";
 
 type Props = {
   title: titleNames;
 };
 
-import { motion, animationControls, useAnimation } from "framer-motion";
-
 export default function SmallScreenPhone({ title }: Props) {
-  const [locationOfPhone, setLocationOfPhone] = useState("100%");
   const [opacity, setOpacity] = useState(0);
-
   const [viewportHeight, setViewportHeight] = useState("0px");
-
   const titleNameStateValue = useRecoilValue(titleNamesStateAtom);
-
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const animationControls = useAnimation();
+  const animatonControls = useAnimationControls();
 
   useEffect(() => {
     handleScroll();
@@ -93,39 +86,39 @@ export default function SmallScreenPhone({ title }: Props) {
     } else if (ratio <= 0.917) {
       locationNumeric = 2597.402597402595 * ratio - 2281.8181818181797;
     } else {
-      locationNumeric = 101;
+      locationNumeric = 100;
     }
 
     const location = `${locationNumeric}%`;
-    let opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
+    const opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
 
-    if (opacityNumeric < 0) opacityNumeric = 0;
+    setOpacity(opacityNumeric);
 
-    if (Math.abs(locationNumeric) > 100) return;
-
-    animationControls.start({
+    animatonControls.start({
       x: location,
       transition: {
         duration: "50ms",
-        damping: "10",
+        damping: 0,
       },
     });
-
-    setLocationOfPhone(location);
-    setOpacity(opacityNumeric);
   };
 
   return (
     <motion.div
-      animate={animationControls}
       hidden={title !== titleNameStateValue}
       style={{
+        display: "flex",
+        justifyContent: "center",
         width: "100%",
         height: viewportHeight,
         position: "fixed",
         zIndex: 2,
+        userSelect: "none",
         opacity: opacity,
-        
+      }}
+      animate={animatonControls}
+      initial={{
+        x: "100%",
       }}
     >
       <video
@@ -133,6 +126,7 @@ export default function SmallScreenPhone({ title }: Props) {
         muted
         style={{
           height: "100%",
+          borderRadius: "3rem",
         }}
         playsInline
         loop={title !== "welcome"}
@@ -142,35 +136,5 @@ export default function SmallScreenPhone({ title }: Props) {
         Your browser does not support the video tag.
       </video>
     </motion.div>
-    // <Flex
-    //   justify="center"
-    //   width="100%"
-    //   height={viewportHeight}
-    //   position="fixed"
-    //   willChange="transform"
-    //   transform="auto"
-    //   transitionDuration="50ms,200ms"
-    //   translateX={locationOfPhone}
-    //   transitionProperty="transform, height"
-    //   transitionTimingFunction="linear"
-    //   opacity={opacity}
-    //   userSelect="none"
-    //   hidden={title !== titleNameStateValue}
-    //   zIndex={2}
-    // >
-    //   <video
-    //     ref={videoRef}
-    //     muted
-    //     style={{
-    //       height: "100%",
-    //     }}
-    //     playsInline
-    //     loop={title !== "welcome"}
-    //     autoPlay
-    //   >
-    //     <source src={videoSources[title]} type="video/mp4" />
-    //     Your browser does not support the video tag.
-    //   </video>
-    // </Flex>
   );
 }

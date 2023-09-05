@@ -1,10 +1,14 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
-import { useInView } from "react-intersection-observer";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+
 import { useRecoilValue } from "recoil";
 
 export default function FooterSection() {
-  const [ref, inView] = useInView();
+  const ref = useRef(null);
+  const inView = useInView(ref);
+
   const screenModeStateValue = useRecoilValue(screenModStateAtom);
 
   return (
@@ -18,7 +22,6 @@ export default function FooterSection() {
       transition="1s transform ease-in-out"
       px={screenModeStateValue === "mobile" ? "unset" : "20"}
       zIndex={1}
-
     >
       <Text
         fontWeight="extrabold"
@@ -52,7 +55,11 @@ export default function FooterSection() {
           maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
           cursor="pointer"
           onClick={() => {
-            window.open("https://github.com/aboveStars/blocksocial-v2-frontend", "_blank", "noopener,noreferrer");
+            window.open(
+              "https://github.com/aboveStars/blocksocial-v2-frontend",
+              "_blank",
+              "noopener,noreferrer"
+            );
           }}
         >
           GitHub Link ↗️

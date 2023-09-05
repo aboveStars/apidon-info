@@ -4,8 +4,9 @@ import {
   videoSources,
 } from "@/atoms/titleNameStateAtom";
 import { Flex } from "@chakra-ui/react";
+import { useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { useInView } from "react-intersection-observer";
+
 import { useRecoilValue } from "recoil";
 
 type Props = {
@@ -16,10 +17,10 @@ type Props = {
 export default function LargeScreenPhone({ title, onCanPlayThrough }: Props) {
   const titleNameState = useRecoilValue(titleNamesStateAtom);
 
-  const [ref, inView] = useInView({
-    triggerOnce: true,
+  const ref = useRef(null);
+  const inView = useInView(ref, {
+    once: true,
   });
-
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
