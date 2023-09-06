@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Apidon Next Gen Social Media</title>
+        <title>Apidon • Next-G Social Media</title>
         <meta
           name="description"
           content="The magnificent platform enables users to select their algorithms, create NFTs that are marketable, and additionally welcomes algorithm creators to participate and generate income."
