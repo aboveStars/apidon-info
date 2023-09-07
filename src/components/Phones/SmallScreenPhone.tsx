@@ -123,6 +123,7 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
       }}
     >
       <video
+        poster={process.env.NEXT_PUBLIC_VIDEO_POSTER_URL}
         ref={videoRef}
         muted
         style={{
