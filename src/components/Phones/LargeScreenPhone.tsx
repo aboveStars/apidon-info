@@ -1,7 +1,7 @@
 import { titleNames, titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
 import { Flex } from "@chakra-ui/react";
-import { useInView, useMotionValueEvent, useScroll } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 import { useRecoilValue } from "recoil";
 
@@ -17,12 +17,16 @@ export default function LargeScreenPhone({
   videoURL,
 }: Props) {
   const titleNameState = useRecoilValue(titleNamesStateAtom);
-
   const ref = useRef(null);
   const inView = useInView(ref, {
     once: true,
   });
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  /**
+   * if true, device is in low power mode.
+   */
+  const [isLowPowerModeActive, setIsLowPowerModeActive] = useState(false);
 
   useEffect(() => {
     if (!videoRef.current) return;
@@ -38,7 +42,8 @@ export default function LargeScreenPhone({
     try {
       await videoRefCurrent.play();
     } catch (error) {
-      // not important.
+      // there can be other reasons videos can't be played, but mostly low power mode is causing it.
+      setIsLowPowerModeActive(true);
     }
   };
 
@@ -57,7 +62,7 @@ export default function LargeScreenPhone({
       scale={title === "welcome" && !inView ? "1.1" : "1"}
       opacity={titleNameState === title ? 1 : 0}
       userSelect="none"
-      pointerEvents="none"
+      pointerEvents={title === titleNameState ? "unset" : "none"}
     >
       <video
         ref={videoRef}
@@ -68,6 +73,7 @@ export default function LargeScreenPhone({
         playsInline
         onCanPlayThrough={onCanPlayThrough}
         loop={title !== "welcome"}
+        controls={isLowPowerModeActive && titleNameState === title} // second coniditon is for not trusting to "pointerEvents : none".
       >
         <source src={videoURL} />
       </video>

@@ -15,6 +15,8 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const animatonControls = useAnimationControls();
 
+  const [isLowPowerModeActive, setIsLowPowerModeActive] = useState(false);
+
   useEffect(() => {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
@@ -55,7 +57,8 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
     try {
       await videoRefCurrent.play();
     } catch (error) {
-      // not important.
+      // there can be other reasons videos can't be played, but mostly low power mode is causing it.
+      setIsLowPowerModeActive(true);
     }
   };
 
@@ -128,6 +131,7 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
         }}
         playsInline
         loop={title !== "welcome"}
+        controls={isLowPowerModeActive}
       >
         <source src={videoURL} type="video/mp4" />
         Your browser does not support the video tag.
