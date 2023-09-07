@@ -6,6 +6,10 @@ export default function Home() {
     <>
       <Head>
         <title>Apidon • Next-G Social Media</title>
+        <link
+          rel="icon"
+          href="https://firebasestorage.googleapis.com/v0/b/apidon-info.appspot.com/o/icon.png?alt=media&token=6dcecf16-7edd-46d5-809a-2b154158c7c8"
+        />
         <meta
           name="description"
           content="The magnificent platform enables users to select their algorithms, create NFTs that are marketable, and additionally welcomes algorithm creators to participate and generate income."

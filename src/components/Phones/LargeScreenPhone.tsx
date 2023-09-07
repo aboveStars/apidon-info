@@ -1,9 +1,6 @@
-import {
-  titleNames,
-  titleNamesStateAtom
-} from "@/atoms/titleNameStateAtom";
+import { titleNames, titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
 import { Flex } from "@chakra-ui/react";
-import { useInView } from "framer-motion";
+import { useInView, useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 import { useRecoilValue } from "recoil";
