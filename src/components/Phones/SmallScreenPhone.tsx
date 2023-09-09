@@ -98,8 +98,7 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
     animatonControls.start({
       x: location,
       transition: {
-        duration: "50ms",
-        damping: 0,
+        duration: 0,
       },
     });
   };
