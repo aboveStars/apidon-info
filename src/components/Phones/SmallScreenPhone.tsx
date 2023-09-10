@@ -1,7 +1,10 @@
 import { titleNames, titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
-import { motion, useAnimationControls } from "framer-motion";
+
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
+
+import { Flex } from "@chakra-ui/react";
+import { gsap } from "gsap";
 
 type Props = {
   title: titleNames;
@@ -9,13 +12,12 @@ type Props = {
 };
 
 export default function SmallScreenPhone({ title, videoURL }: Props) {
-  const [opacity, setOpacity] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState("0px");
   const titleNameStateValue = useRecoilValue(titleNamesStateAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const animatonControls = useAnimationControls();
 
   const [isLowPowerModeActive, setIsLowPowerModeActive] = useState(false);
+
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     handleScroll();
@@ -35,24 +37,6 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
     }
   }, [titleNameStateValue]);
 
-  useEffect(() => {
-    handleViewportChange();
-    // Add an event listener for visualViewport changes
-    window.visualViewport?.addEventListener("resize", handleViewportChange);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.visualViewport?.removeEventListener(
-        "resize",
-        handleViewportChange
-      );
-    };
-  }, []); // Empty dependency array means this effect runs only on mount and unmount
-
-  const handleViewportChange = () => {
-    setViewportHeight(`${window.visualViewport?.height}px`);
-  };
-
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
     try {
       await videoRefCurrent.play();
@@ -63,8 +47,6 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
   };
 
   const handleScroll = () => {
-    handleViewportChange();
-
     const windowHeight = window.innerHeight;
     const totalScrollableHeight =
       document.documentElement.scrollHeight - windowHeight;
@@ -93,33 +75,23 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
     const location = `${locationNumeric}%`;
     const opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
 
-    setOpacity(opacityNumeric);
-
-    animatonControls.start({
+    gsap.to(ref.current, {
       x: location,
-      transition: {
-        duration: 0,
-      },
+      opacity: opacityNumeric,
+      duration: "0.1",
     });
   };
 
   return (
-    <motion.div
+    <Flex
+      ref={ref}
       hidden={title !== titleNameStateValue}
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-        height: viewportHeight,
-        position: "fixed",
-        userSelect: "none",
-        opacity: opacity,
-        zIndex: 2,
-      }}
-      animate={animatonControls}
-      initial={{
-        x: "100%",
-      }}
+      height="100vh"
+      justify="center"
+      width="100%"
+      position="fixed"
+      userSelect="none"
+      zIndex={2}
     >
       <video
         poster={process.env.NEXT_PUBLIC_VIDEO_POSTER_URL}
@@ -136,6 +108,6 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
         <source src={videoURL} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-    </motion.div>
+    </Flex>
   );
 }
