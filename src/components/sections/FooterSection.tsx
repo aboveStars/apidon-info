@@ -1,9 +1,9 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-
+import { useEffect, useRef } from "react";
 import { useRecoilValue } from "recoil";
+import IstanbulSVGSection from "./IstanbulSVGSection";
 
 export default function FooterSection() {
   const ref = useRef(null);
@@ -11,17 +11,24 @@ export default function FooterSection() {
 
   const screenModeStateValue = useRecoilValue(screenModStateAtom);
 
+  useEffect(() => {
+    console.log("InView of Footer: ", inView);
+  }, [inView]);
+
   return (
     <Flex
-      direction="column"
+      width="100%"
       height="100vh"
-      justify="center"
-      gap="5"
       transform="auto"
-      scale={inView ? 1 : 0}
-      transition="1s transform ease-in-out"
-      px={screenModeStateValue === "mobile" ? "unset" : "20"}
+      gap="5"
       zIndex={1}
+      justify="center"
+      direction="column"
+      scale={inView ? 1 : 0}
+      transitionDuration="1s"
+      transitionTimingFunction="linear"
+      transitionProperty="transform"
+      px={screenModeStateValue === "mobile" ? "5" : "20"}
     >
       <Text
         fontWeight="extrabold"
@@ -30,7 +37,7 @@ export default function FooterSection() {
         bgGradient="linear(to-l, #ff930f, #fff95b)"
         bgClip="text"
         id="main-title"
-        textAlign="center"
+        textAlign="left"
         _selection={{
           backgroundColor: "green",
           color: "white",
@@ -38,31 +45,42 @@ export default function FooterSection() {
         ref={ref}
         maxWidth={screenModeStateValue === "mobile" ? "unset" : "45rem"}
       >
-        Made with ❤️ in İstanbul
+        Follow Our Journey
+      </Text>
+      <Text
+        as="b"
+        color="#a1a1a6"
+        fontSize={screenModeStateValue === "mobile" ? "sm" : "lg"}
+        id="description"
+        textAlign="left"
+        lineHeight="normal"
+        _selection={{
+          backgroundColor: "white",
+          color: "black",
+        }}
+        maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
+        bg="black"
+      >
+        Stay connected with our project by following us on GitHub and engaging
+        with us on our various social media platforms. Join the conversation and
+        be a part of our community!
       </Text>
 
-      <Flex justify="center">
+      <Flex direction="column" align="center" gap="3">
+        {inView && (
+          <>
+            <IstanbulSVGSection />
+          </>
+        )}
+
         <Text
-          color="gray.500"
-          fontSize={screenModeStateValue === "mobile" ? "sm" : "lg"}
-          id="description"
-          textAlign="center"
-          lineHeight="normal"
-          _selection={{
-            backgroundColor: "white",
-            color: "black",
-          }}
-          maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
-          cursor="pointer"
-          onClick={() => {
-            window.open(
-              "https://github.com/aboveStars/blocksocial-v2-frontend",
-              "_blank",
-              "noopener,noreferrer"
-            );
-          }}
+          opacity={inView ? 1 : 0}
+          transition={inView ? "all 3s linear 1s" : "none"}
+          fontWeight="700"
+          fontSize="xs"
+          color="white"
         >
-          GitHub Link ↗️
+          Made with ❤️ in Istanbul
         </Text>
       </Flex>
     </Flex>
