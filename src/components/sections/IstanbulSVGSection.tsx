@@ -1,24 +1,27 @@
 import { Box } from "@chakra-ui/react";
 import { motion, useAnimationControls } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { clearIstanbulAllPath } from "../IstanbulPaths";
 
-export default function IstanbulSVGSection() {
+type Props = {
+  animate: boolean;
+};
+
+export default function IstanbulSVGSection({ animate }: Props) {
   const animationControls = useAnimationControls();
   const secondAC = useAnimationControls();
 
-  const ref = useRef(null);
-
   useEffect(() => {
+    if (!animate) return;
     handleAnimations();
-  }, []);
+  }, [animate]);
 
   const handleAnimations = async () => {
     try {
       await animationControls.start({
         pathLength: 1,
         transition: {
-          delay: 0.5,
+          delay: 1,
           ease: [1, 0.01, 0.9, 0.99],
           duration: 3,
           type: "tween",
@@ -53,7 +56,7 @@ export default function IstanbulSVGSection() {
         alignContent: "center",
       }}
     >
-      <svg width="100%" viewBox="0 0 425 115" ref={ref}>
+      <svg width="100%" viewBox="0 0 425 115">
         <motion.g
           fill="#1b1918"
           fillRule="evenodd"
