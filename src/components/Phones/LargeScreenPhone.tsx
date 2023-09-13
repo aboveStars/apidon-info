@@ -72,7 +72,7 @@ export default function LargeScreenPhone({
         }}
         playsInline
         onCanPlayThrough={onCanPlayThrough}
-        loop={title !== "welcome"}
+        loop={!(title === "footer" || title === "welcome")}
         controls={isLowPowerModeActive && titleNameState === title} // second coniditon is for not trusting to "pointerEvents : none".
       >
         <source src={videoURL} />

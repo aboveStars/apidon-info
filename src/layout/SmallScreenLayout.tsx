@@ -4,7 +4,7 @@ import ProviderSection from "@/components/sections/ProviderSection";
 import SmallPhoneSection from "@/components/sections/SmallPhoneSection";
 import UserSection from "@/components/sections/UserSection";
 import WelcomeSection from "@/components/sections/WelcomeSection";
-import { Flex, Image } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
 
 export default function SmallScreenLayout() {
   return (
@@ -15,6 +15,8 @@ export default function SmallScreenLayout() {
         width="100%"
         position="fixed"
         objectFit="fill"
+        pointerEvents="none"
+        userSelect="none"
       />
       <WelcomeSection />
       <UserSection />

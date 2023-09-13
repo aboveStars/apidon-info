@@ -66,8 +66,8 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
       locationNumeric = 2597.402597402599 * ratio - 1414.2857142857151;
     } else if (ratio <= 0.75) {
       locationNumeric = -2298.8505747126446 * ratio + 1624.1379310344835;
-    } else if (ratio <= 0.917) {
-      locationNumeric = 2597.402597402595 * ratio - 2281.8181818181797;
+    } else if (ratio <= 0.8671) {
+      locationNumeric = 3220.612 * ratio - 2692.593;
     } else {
       locationNumeric = 100;
     }
