@@ -1,18 +1,19 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
-import { Flex, Text, useStatStyles } from "@chakra-ui/react";
+import { titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
+import { Flex, Text } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import IstanbulSVGSection from "../IstanbulSVGSection";
 import SocialButton from "../SocialButton";
-import { titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
 
 export default function FooterSection() {
   const tRef = useRef(null);
   const inView = useInView(tRef);
 
   const screenModeStateValue = useRecoilValue(screenModStateAtom);
-  const setTitleNameState = useSetRecoilState(titleNamesStateAtom);
+  const [titleNameState, setTitleNameState] =
+    useRecoilState(titleNamesStateAtom);
 
   useEffect(() => {
     if (inView) {
@@ -31,7 +32,13 @@ export default function FooterSection() {
       overflow="hidden"
       gap="10"
     >
-      <Flex direction="column" gap="5">
+      <Flex
+        direction="column"
+        gap="5"
+        transform="auto"
+        scale={titleNameState === "footer" ? 1 : 0}
+        transition="all 1s linear"
+      >
         <Text
           ref={tRef}
           fontWeight="extrabold"
@@ -46,9 +53,6 @@ export default function FooterSection() {
             color: "white",
           }}
           maxWidth={screenModeStateValue === "mobile" ? "unset" : "45rem"}
-          transform="auto"
-          scale={inView ? 1 : 0}
-          transition="all 1s linear"
         >
           Follow Our Journey
         </Text>
@@ -65,9 +69,6 @@ export default function FooterSection() {
           }}
           maxWidth={screenModeStateValue === "mobile" ? "unset" : "40rem"}
           bg="black"
-          transform="auto"
-          scale={inView ? 1 : 0}
-          transition="all 1s linear"
         >
           Stay connected and engage with us on our various social media
           platforms. Join the conversation and be a part of our community!
@@ -81,7 +82,7 @@ export default function FooterSection() {
         justify="space-between"
         px={screenModeStateValue === "large" ? 2 : "unset"}
         transform="auto"
-        translateY={inView ? "0" : "100%"}
+        scale={titleNameState === "footer" ? 1 : 0}
         transition="all 1s linear"
       >
         <SocialButton
