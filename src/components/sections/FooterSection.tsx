@@ -88,7 +88,7 @@ export default function FooterSection() {
         <SocialButton
           isMobile={screenModeStateValue === "mobile"}
           buttonName="GitHub"
-          iconURL="/images/social/github2.png"
+          iconURL="/images/social/github.png"
           socialMediaLink="https://github.com/aboveStars/blocksocial-v2-frontend"
         />
 
