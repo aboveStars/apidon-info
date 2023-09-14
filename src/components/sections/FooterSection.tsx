@@ -118,10 +118,9 @@ export default function FooterSection() {
         <Text
           opacity={inView ? 1 : 0}
           transform="auto"
-          scale={inView ? 1 : 0}
           transitionDuration={inView ? "4.5s" : "0s"}
           transitionTimingFunction="linear"
-          transitionProperty="transform,opacity"
+          transitionProperty="opacity"
           fontWeight="700"
           fontSize="xs"
           color="white"
