@@ -1,21 +1,24 @@
-import { titleNames, titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
+import { titleIDs, titleIdStateAtom } from "@/atoms/titleNameStateAtom";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useRecoilValue } from "recoil";
 
 import { Flex } from "@chakra-ui/react";
 import { gsap } from "gsap";
 
 type Props = {
-  title: titleNames;
+  titleId: titleIDs;
   videoURL: string;
+  posterURL: string;
 };
 
-export default function SmallScreenPhone({ title, videoURL }: Props) {
-  const titleNameStateValue = useRecoilValue(titleNamesStateAtom);
+export default function SmallScreenPhone({
+  titleId,
+  videoURL,
+  posterURL,
+}: Props) {
+  const titleIdStateValue = useRecoilValue(titleIdStateAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const [isLowPowerModeActive, setIsLowPowerModeActive] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -30,23 +33,24 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
   useEffect(() => {
     if (!videoRef.current) return;
 
-    if (titleNameStateValue !== title) {
+    if (titleIdStateValue !== titleId) {
       videoRef.current.pause();
     } else {
       handlePlayVideo(videoRef.current);
     }
-  }, [titleNameStateValue]);
+  }, [titleIdStateValue]);
 
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
     try {
       await videoRefCurrent.play();
     } catch (error) {
       // there can be other reasons videos can't be played, but mostly low power mode is causing it.
-      setIsLowPowerModeActive(true);
     }
   };
 
   const handleScroll = () => {
+    if (!ref.current) return;
+
     const windowHeight = window.innerHeight;
     const totalScrollableHeight =
       document.documentElement.scrollHeight - windowHeight;
@@ -66,8 +70,8 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
       locationNumeric = 2597.402597402599 * ratio - 1414.2857142857151;
     } else if (ratio <= 0.75) {
       locationNumeric = -2298.8505747126446 * ratio + 1624.1379310344835;
-    } else if (ratio <= 0.8671) {
-      locationNumeric = 3220.612 * ratio - 2692.593;
+    } else if (ratio <= 0.9223) {
+      locationNumeric = 2344.666 * ratio - 2062.485;
     } else {
       locationNumeric = 100;
     }
@@ -85,16 +89,20 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
   return (
     <Flex
       ref={ref}
-      hidden={title !== titleNameStateValue}
+      hidden={titleId !== titleIdStateValue}
+      // hidden
       height="100vh"
       justify="center"
       width="100%"
       position="fixed"
       userSelect="none"
       zIndex={2}
+      style={{
+        transform: "translateX(100%)",
+      }}
     >
       <video
-        poster={process.env.NEXT_PUBLIC_VIDEO_POSTER_URL}
+        poster={posterURL}
         ref={videoRef}
         muted
         style={{
@@ -102,11 +110,9 @@ export default function SmallScreenPhone({ title, videoURL }: Props) {
           borderRadius: "3rem",
         }}
         playsInline
-        loop={title !== "welcome"}
-        controls={isLowPowerModeActive}
+        loop={titleId !== "welcome"}
       >
         <source src={videoURL} type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
     </Flex>
   );

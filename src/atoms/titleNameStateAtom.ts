@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export type titleNames =
+export type titleIDs =
   | "welcome"
   | "vision"
   | "rewards"
@@ -9,7 +9,7 @@ export type titleNames =
   | "provider"
   | "footer";
 
-export const titles: titleNames[] = [
+export const titles: titleIDs[] = [
   "welcome",
   "vision",
   "rewards",
@@ -28,8 +28,19 @@ export const videoSources = {
   provider: process.env.NEXT_PUBLIC_PROVIDER_VIDEO_URL,
   footer: process.env.NEXT_PUBLIC_WELCOME_VIDEO_URL,
 };
+export const posterSources = {
+  welcome: process.env.NEXT_PUBLIC_WELCOME_POSTER_URL,
+  vision: process.env.NEXT_PUBLIC_VISION_POSTER_URL,
+  rewards: process.env.NEXT_PUBLIC_REWARDS_POSTER_URL,
+  rate: process.env.NEXT_PUBLIC_RATE_POSTER_URL,
+  nft: process.env.NEXT_PUBLIC_NFT_POSTER_URL,
+  provider: process.env.NEXT_PUBLIC_PROVIDER_POSTER_URL,
+  footer: process.env.NEXT_PUBLIC_WELCOME_POSTER_URL,
+};
 
-export const titleNamesStateAtom = atom<titleNames>({
-  key: "titleNamesStateAtom",
+
+
+export const titleIdStateAtom = atom<titleIDs>({
+  key: "titleIdStateAtom",
   default: "welcome",
 });

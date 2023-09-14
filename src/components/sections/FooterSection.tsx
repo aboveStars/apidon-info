@@ -1,23 +1,22 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
-import { titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
+import { titleIdStateAtom } from "@/atoms/titleNameStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import IstanbulSVGSection from "../IstanbulSVGSection";
 import SocialButton from "../SocialButton";
 
 export default function FooterSection() {
-  const tRef = useRef(null);
-  const inView = useInView(tRef);
+  const ref = useRef(null);
+  const inView = useInView(ref);
 
   const screenModeStateValue = useRecoilValue(screenModStateAtom);
-  const [titleNameState, setTitleNameState] =
-    useRecoilState(titleNamesStateAtom);
+  const setTitleIdState = useSetRecoilState(titleIdStateAtom);
 
   useEffect(() => {
     if (inView) {
-      setTitleNameState("footer");
+      setTitleIdState("footer");
     }
   }, [inView]);
 
@@ -36,11 +35,12 @@ export default function FooterSection() {
         direction="column"
         gap="5"
         transform="auto"
-        scale={titleNameState === "footer" ? 1 : 0}
-        transition="all 1s linear"
+        scale={inView ? 1 : 0}
+        transitionDuration="1s"
+        transitionTimingFunction="linear"
+        transitionProperty="transform"
       >
         <Text
-          ref={tRef}
           fontWeight="extrabold"
           lineHeight="normal"
           fontSize={screenModeStateValue === "mobile" ? "5xl" : "7xl"}
@@ -76,14 +76,17 @@ export default function FooterSection() {
       </Flex>
 
       <Flex
+        ref={ref}
         id="social"
         width="100%"
         zIndex={1}
         justify="space-between"
         px={screenModeStateValue === "large" ? 2 : "unset"}
         transform="auto"
-        scale={titleNameState === "footer" ? 1 : 0}
-        transition="all 1s linear"
+        scale={inView ? 1 : 0}
+        transitionDuration="1s"
+        transitionTimingFunction="linear"
+        transitionProperty="transform"
       >
         <SocialButton
           isMobile={screenModeStateValue === "mobile"}
@@ -114,7 +117,11 @@ export default function FooterSection() {
         />
         <Text
           opacity={inView ? 1 : 0}
-          transition={inView ? "all 3s linear 1s" : "none"}
+          transform="auto"
+          scale={inView ? 1 : 0}
+          transitionDuration={inView ? "4.5s" : "0s"}
+          transitionTimingFunction="linear"
+          transitionProperty="transform,opacity"
           fontWeight="700"
           fontSize="xs"
           color="white"

@@ -1,19 +1,18 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
-import { titleNames, titleNamesStateAtom } from "@/atoms/titleNameStateAtom";
+import { titleIDs, titleIdStateAtom } from "@/atoms/titleNameStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
-import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useEffect, useRef } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 type Props = {
   title: string;
   description: string;
-  titleName: titleNames;
+  titleId: titleIDs;
 };
 
-export default function Title({ title, description, titleName }: Props) {
-  const [titleNameState, setTitleNameState] =
-    useRecoilState(titleNamesStateAtom);
+export default function Title({ title, description, titleId }: Props) {
+  const setTitleNameState = useSetRecoilState(titleIdStateAtom);
 
   const ref = useRef(null);
   const inView = useInView(ref);
@@ -22,7 +21,7 @@ export default function Title({ title, description, titleName }: Props) {
 
   useEffect(() => {
     if (inView) {
-      setTitleNameState(titleName);
+      setTitleNameState(titleId);
     }
   }, [inView]);
 
@@ -33,7 +32,7 @@ export default function Title({ title, description, titleName }: Props) {
       justify="center"
       gap="5"
       transform="auto"
-      scale={titleNameState === titleName ? 1 : 0}
+      scale={inView ? 1 : 0}
       transitionDuration="1s"
       transitionTimingFunction="linear"
       transitionProperty="transform"

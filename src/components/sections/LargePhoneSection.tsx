@@ -1,4 +1,4 @@
-import { titleNames, titles, videoSources } from "@/atoms/titleNameStateAtom";
+import { titleIDs, titles, videoSources } from "@/atoms/titleNameStateAtom";
 import { videosAreReadyStateAtom } from "@/atoms/videosAreReadyStateAtom";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
@@ -17,7 +17,7 @@ export default function LargePhoneSection() {
     provider: false,
   });
 
-  const handleVideoCanBePlayedThrough = (title: titleNames) => {
+  const handleVideoCanBePlayedThrough = (title: titleIDs) => {
     setVideosCanBePlayedThroughDatabase((a) => ({ ...a, [title]: true }));
   };
 
@@ -35,10 +35,11 @@ export default function LargePhoneSection() {
     <>
       {titles.map((t, i) => (
         <LargeScreenPhone
-          title={t}
+          titleId={t}
           key={`${t}-${i}-large`}
           onCanPlayThrough={() => handleVideoCanBePlayedThrough(t)}
           videoURL={videoSources[t] as string}
+          posterURL={videoSources[t] as string}
         />
       ))}
     </>
