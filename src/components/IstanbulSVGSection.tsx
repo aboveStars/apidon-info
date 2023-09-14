@@ -84,7 +84,7 @@ export default function IstanbulSVGSection({ animate, isMobile }: Props) {
       await animationControls.start({
         pathLength: 1,
         transition: {
-          delay: 1,
+          delay: 0,
           ease: [1, 0.01, 0.9, 0.99],
           duration: 3,
           type: "tween",
