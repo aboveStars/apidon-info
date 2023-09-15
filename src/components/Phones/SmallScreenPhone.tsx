@@ -41,6 +41,7 @@ export default function SmallScreenPhone({
   }, [titleIdStateValue]);
 
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
+    videoRefCurrent.currentTime = 0;
     try {
       await videoRefCurrent.play();
     } catch (error) {

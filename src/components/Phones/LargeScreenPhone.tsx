@@ -36,10 +36,21 @@ export default function LargeScreenPhone({
   }, [titleIdStateValue]);
 
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
+    videoRefCurrent.currentTime = 0;
     try {
       await videoRefCurrent.play();
     } catch (error) {
       // there can be other reasons videos can't be played, but mostly low power mode is causing it.
+    }
+  };
+
+  const handleHover = (isEntered: boolean) => {
+    if (!videoRef.current) return;
+    if (isEntered) return videoRef.current.pause();
+    try {
+      videoRef.current.play();
+    } catch (error) {
+      // not important
     }
   };
 
@@ -61,6 +72,12 @@ export default function LargeScreenPhone({
       pointerEvents={titleId === titleIdStateValue ? "unset" : "none"}
     >
       <video
+        onMouseEnter={() => {
+          handleHover(true);
+        }}
+        onMouseLeave={() => {
+          handleHover(false);
+        }}
         poster={posterURL}
         ref={videoRef}
         muted
