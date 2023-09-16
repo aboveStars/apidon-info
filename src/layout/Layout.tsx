@@ -1,5 +1,6 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
-import { Flex, Text, useBreakpointValue } from "@chakra-ui/react";
+import InitialScreen from "@/components/InitialScreen";
+import { useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import LargeScreenLayout from "./LargeScreenLayout";
@@ -37,33 +38,7 @@ export default function Layout() {
   return (
     <>
       {screenStatus === "undefined" ? (
-        <Flex
-          bg="black"
-          width="100%"
-          height="100vh"
-          justify="center"
-          align="center"
-          direction="column"
-        >
-          <img
-            src="/images/initial/grayscale.png"
-            width="30px"
-            height="30px"
-            style={{
-              borderRadius: "5px",
-              opacity: 0.5,
-            }}
-          />
-          <Text
-            fontWeight="600"
-            color="gray"
-            fontSize="3px"
-            mt="0.5"
-            maxWidth="30px"
-          >
-            aboveStars
-          </Text>
-        </Flex>
+        <InitialScreen />
       ) : screenStatus === "mobile" ? (
         <SmallScreenLayout />
       ) : (

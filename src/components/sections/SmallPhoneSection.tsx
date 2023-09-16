@@ -1,8 +1,4 @@
-import {
-  posterSources,
-  titles,
-  videoSources,
-} from "@/atoms/titleNameStateAtom";
+import { posterSources, titles, videoSources } from "@/atoms/titleIdStateAtom";
 import SmallScreenPhone from "../Phones/SmallScreenPhone";
 
 export default function SmallPhoneSection() {

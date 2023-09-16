@@ -1,20 +1,18 @@
-import { titleIDs, titleIdStateAtom } from "@/atoms/titleNameStateAtom";
-import { Flex } from "@chakra-ui/react";
+import { firstContentReadyStateAtom } from "@/atoms/firstContentReadyStateAtom";
+import { titleIDs, titleIdStateAtom } from "@/atoms/titleIdStateAtom";
+import { Flex, Image } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 type Props = {
   titleId: titleIDs;
-  onCanPlayThrough: () => void;
   videoURL: string;
   posterURL: string;
 };
 
 export default function LargeScreenPhone({
   titleId,
-  onCanPlayThrough,
   videoURL,
   posterURL,
 }: Props) {
@@ -24,6 +22,10 @@ export default function LargeScreenPhone({
     once: true,
   });
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const setFirstContentReadyState = useSetRecoilState(
+    firstContentReadyStateAtom
+  );
 
   useEffect(() => {
     if (!videoRef.current) return;
@@ -71,25 +73,46 @@ export default function LargeScreenPhone({
       userSelect="none"
       pointerEvents={titleId === titleIdStateValue ? "unset" : "none"}
     >
-      <video
-        onMouseEnter={() => {
-          handleHover(true);
-        }}
-        onMouseLeave={() => {
-          handleHover(false);
-        }}
-        poster={posterURL}
-        ref={videoRef}
-        muted
-        style={{
-          height: "100%",
-        }}
-        playsInline
-        onCanPlayThrough={onCanPlayThrough}
-        loop={!(titleId === "footer" || titleId === "welcome")}
-      >
-        <source src={videoURL} />
-      </video>
+      {titleId === "welcome" || titleId === "footer" ? (
+        <Image
+          py="1.5"
+          src={posterURL}
+          objectFit="contain"
+          fallbackSrc={
+            process.env.NEXT_PUBLIC_WELCOME_POSTER_FALLBACK_URL as string
+          }
+          fallbackStrategy="onError"
+          style={{
+            height: "100%",
+          }}
+          onLoad={() => {
+            if (titleId === "welcome") setFirstContentReadyState(true);
+          }}
+          onError={() => {
+            if (titleId === "welcome") setFirstContentReadyState(true);
+          }}
+          pointerEvents="none"
+          userSelect="none"
+        />
+      ) : (
+        <video
+          onMouseEnter={() => {
+            handleHover(true);
+          }}
+          onMouseLeave={() => {
+            handleHover(false);
+          }}
+          poster={posterURL}
+          ref={videoRef}
+          muted
+          style={{
+            height: "100%",
+          }}
+          playsInline
+        >
+          <source src={videoURL} />
+        </video>
+      )}
     </Flex>
   );
 }

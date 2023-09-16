@@ -1,25 +1,28 @@
 import { Box } from "@chakra-ui/react";
-import { motion, useAnimationControls } from "framer-motion";
-import { useEffect, useState } from "react";
-import { clearIstanbulAllPath } from "./IstanbulPaths";
+import { motion, useAnimationControls, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { clearIstanbulAllPath } from "./IstanbulPath";
 
 type Props = {
-  animate: boolean;
   isMobile: boolean;
 };
 
-export default function IstanbulSVGSection({ animate, isMobile }: Props) {
+export default function IstanbulSVG({ isMobile }: Props) {
   const animationControls = useAnimationControls();
   const secondAC = useAnimationControls();
 
   const [animationIsInProgress, setAnimationIsInProgress] = useState(false);
 
-  useEffect(() => {
-    if (!animate) return;
-    handleAnimations();
-  }, [animate]);
+  const ref = useRef(null);
+  const inView = useInView(ref);
 
-  const handleReAnimate = async () => {
+  useEffect(() => {
+    if (inView) {
+      handleAnimations();
+    }
+  }, [inView]);
+
+  const handleAnimations = async () => {
     if (animationIsInProgress) return;
 
     setAnimationIsInProgress(true);
@@ -75,43 +78,10 @@ export default function IstanbulSVGSection({ animate, isMobile }: Props) {
 
     setAnimationIsInProgress(false);
   };
-  const handleAnimations = async () => {
-    if (animationIsInProgress) return;
-
-    setAnimationIsInProgress(true);
-
-    try {
-      await animationControls.start({
-        pathLength: 1,
-        transition: {
-          delay: 0,
-          ease: [1, 0.01, 0.9, 0.99],
-          duration: 3,
-          type: "tween",
-        },
-      });
-    } catch (error) {
-      // not important
-    }
-
-    try {
-      await secondAC.start({
-        fillOpacity: 1,
-        transition: {
-          delay: 0,
-          duration: 0.5,
-          ease: "easeInOut",
-        },
-      });
-    } catch (error) {
-      // not important
-    }
-
-    setAnimationIsInProgress(false);
-  };
 
   return (
     <Box
+      ref={ref}
       p={0}
       width="100%"
       height="auto"
@@ -122,11 +92,11 @@ export default function IstanbulSVGSection({ animate, isMobile }: Props) {
       }}
       onMouseEnter={() => {
         if (isMobile) return;
-        handleReAnimate();
+        handleAnimations();
       }}
       onClick={() => {
         if (!isMobile) return;
-        handleReAnimate();
+        handleAnimations();
       }}
     >
       <svg width="100%" viewBox="0 0 425 115">

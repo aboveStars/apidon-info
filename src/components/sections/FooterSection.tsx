@@ -1,11 +1,12 @@
 import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
-import { titleIdStateAtom } from "@/atoms/titleNameStateAtom";
+import { titleIdStateAtom } from "@/atoms/titleIdStateAtom";
 import { Flex, Text } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import IstanbulSVGSection from "../IstanbulSVGSection";
+
 import SocialButton from "../SocialButton";
+import IstanbulSVG from "../istanbul/IstanbulSvg";
 
 export default function FooterSection() {
   const ref = useRef(null);
@@ -30,16 +31,13 @@ export default function FooterSection() {
       px={screenModeStateValue === "mobile" ? "5" : "20"}
       overflow="hidden"
       gap="10"
+      transform="auto"
+      scale={inView ? 1 : 0}
+      transitionDuration="1s"
+      transitionTimingFunction="linear"
+      transitionProperty="transform"
     >
-      <Flex
-        direction="column"
-        gap="5"
-        transform="auto"
-        scale={inView ? 1 : 0}
-        transitionDuration="1s"
-        transitionTimingFunction="linear"
-        transitionProperty="transform"
-      >
+      <Flex direction="column" gap="5">
         <Text
           fontWeight="extrabold"
           lineHeight="normal"
@@ -49,7 +47,7 @@ export default function FooterSection() {
           id="main-title"
           textAlign="left"
           _selection={{
-            backgroundColor: "green",
+            backgroundColor: "rgb(246,192,81)",
             color: "white",
           }}
           maxWidth={screenModeStateValue === "mobile" ? "unset" : "45rem"}
@@ -82,39 +80,30 @@ export default function FooterSection() {
         zIndex={1}
         justify="space-between"
         px={screenModeStateValue === "large" ? 2 : "unset"}
-        transform="auto"
-        scale={inView ? 1 : 0}
-        transitionDuration="1s"
-        transitionTimingFunction="linear"
-        transitionProperty="transform"
       >
         <SocialButton
+          buttonId="github"
           isMobile={screenModeStateValue === "mobile"}
-          buttonName="GitHub"
-          iconURL="/images/social/github.png"
+          buttonText="GitHub"
           socialMediaLink="https://github.com/aboveStars/blocksocial-v2-frontend"
         />
 
         <SocialButton
+          buttonId="x"
           isMobile={screenModeStateValue === "mobile"}
-          buttonName="X"
-          iconURL="/images/social/x.png"
+          buttonText="X"
           socialMediaLink="https://twitter.com/apidon_com"
         />
         <SocialButton
+          buttonId="instagram"
           isMobile={screenModeStateValue === "mobile"}
-          buttonName="Instagram"
-          iconURL="/images/social/ig.png"
+          buttonText="Instagram"
           socialMediaLink="https://www.instagram.com/apidon_com/"
         />
       </Flex>
 
       <Flex direction="column" align="center" gap="3" zIndex={1}>
-        <IstanbulSVGSection
-          animate={inView}
-          key={`${inView}`}
-          isMobile={screenModeStateValue === "mobile"}
-        />
+        <IstanbulSVG isMobile={screenModeStateValue === "mobile"} />
         <Text
           opacity={inView ? 1 : 0}
           transform="auto"

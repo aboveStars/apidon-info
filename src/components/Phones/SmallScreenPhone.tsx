@@ -1,9 +1,9 @@
-import { titleIDs, titleIdStateAtom } from "@/atoms/titleNameStateAtom";
+import { titleIDs, titleIdStateAtom } from "@/atoms/titleIdStateAtom";
 
 import { useEffect, useRef } from "react";
 import { useRecoilValue } from "recoil";
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 import { gsap } from "gsap";
 
 type Props = {
@@ -91,7 +91,6 @@ export default function SmallScreenPhone({
     <Flex
       ref={ref}
       hidden={titleId !== titleIdStateValue}
-      // hidden
       height="100vh"
       justify="center"
       width="100%"
@@ -102,19 +101,36 @@ export default function SmallScreenPhone({
         transform: "translateX(100%)",
       }}
     >
-      <video
-        poster={posterURL}
-        ref={videoRef}
-        muted
-        style={{
-          height: "100%",
-          borderRadius: "3rem",
-        }}
-        playsInline
-        loop={titleId !== "welcome"}
-      >
-        <source src={videoURL} type="video/mp4" />
-      </video>
+      {titleId === "welcome" || titleId === "footer" ? (
+        <Image
+          objectFit="contain"
+          py="1.5"
+          src={posterURL}
+          fallbackSrc={
+            process.env.NEXT_PUBLIC_WELCOME_POSTER_FALLBACK_URL as string
+          }
+          fallbackStrategy="onError"
+          style={{
+            height: "100%",
+            borderRadius: "3rem",
+          }}
+          pointerEvents="none"
+          userSelect="none"
+        />
+      ) : (
+        <video
+          poster={posterURL}
+          ref={videoRef}
+          muted
+          style={{
+            height: "100%",
+            borderRadius: "3rem",
+          }}
+          playsInline
+        >
+          <source src={videoURL} type="video/mp4" />
+        </video>
+      )}
     </Flex>
   );
 }
