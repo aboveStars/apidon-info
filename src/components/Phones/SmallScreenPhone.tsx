@@ -1,10 +1,11 @@
 import { titleIDs, titleIdStateAtom } from "@/atoms/titleIdStateAtom";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, Icon, Image } from "@chakra-ui/react";
 import { gsap } from "gsap";
+import { FiPause } from "react-icons/fi";
 
 type Props = {
   titleId: titleIDs;
@@ -21,6 +22,8 @@ export default function SmallScreenPhone({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const ref = useRef<HTMLDivElement>(null);
+
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     handleScroll();
@@ -41,6 +44,7 @@ export default function SmallScreenPhone({
   }, [titleIdStateValue]);
 
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
+    if (clicked) return;
     videoRefCurrent.currentTime = 0;
     try {
       await videoRefCurrent.play();
@@ -87,11 +91,24 @@ export default function SmallScreenPhone({
     });
   };
 
+  const handleClick = () => {
+    if (!videoRef.current) return;
+    setClicked((a) => !a);
+    const newClickState = !clicked;
+    if (newClickState) return videoRef.current.pause();
+    try {
+      videoRef.current.play();
+    } catch (error) {
+      // not important
+    }
+  };
+
   return (
     <Flex
       ref={ref}
       hidden={titleId !== titleIdStateValue}
-      height="100vh"
+      height="100%"
+      maxHeight="100vh"
       justify="center"
       width="100%"
       position="fixed"
@@ -118,18 +135,34 @@ export default function SmallScreenPhone({
           userSelect="none"
         />
       ) : (
-        <video
-          poster={posterURL}
-          ref={videoRef}
-          muted
-          style={{
-            height: "100%",
-            borderRadius: "3rem",
-          }}
-          playsInline
-        >
-          <source src={videoURL} type="video/mp4" />
-        </video>
+        <>
+          <video
+            onClick={handleClick}
+            poster={posterURL}
+            ref={videoRef}
+            muted
+            style={{
+              height: "100%",
+              borderRadius: "3rem",
+            }}
+            playsInline
+            loop
+          >
+            <source src={videoURL} type="video/mp4" />
+          </video>
+          <Flex
+            height="100%"
+            width="100%"
+            position="absolute"
+            align="center"
+            justify="center"
+            pointerEvents="none"
+            opacity={clicked ? 1 : 0}
+            transition="opacity 0.2s ease-in-out"
+          >
+            <Icon as={FiPause} fontSize="8xl" color="white" />
+          </Flex>
+        </>
       )}
     </Flex>
   );

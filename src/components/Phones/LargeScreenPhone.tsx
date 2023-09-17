@@ -1,9 +1,11 @@
 import { firstContentReadyStateAtom } from "@/atoms/firstContentReadyStateAtom";
 import { titleIDs, titleIdStateAtom } from "@/atoms/titleIdStateAtom";
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, Icon, Image } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+
+import { FiPause } from "react-icons/fi";
 
 type Props = {
   titleId: titleIDs;
@@ -27,6 +29,8 @@ export default function LargeScreenPhone({
     firstContentReadyStateAtom
   );
 
+  const [hovered, setHovered] = useState(false);
+
   useEffect(() => {
     if (!videoRef.current) return;
 
@@ -38,6 +42,7 @@ export default function LargeScreenPhone({
   }, [titleIdStateValue]);
 
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
+    if (hovered) return;
     videoRefCurrent.currentTime = 0;
     try {
       await videoRefCurrent.play();
@@ -48,6 +53,9 @@ export default function LargeScreenPhone({
 
   const handleHover = (isEntered: boolean) => {
     if (!videoRef.current) return;
+    if (titleId !== titleIdStateValue) return;
+
+    setHovered(isEntered);
     if (isEntered) return videoRef.current.pause();
     try {
       videoRef.current.play();
@@ -95,23 +103,38 @@ export default function LargeScreenPhone({
           userSelect="none"
         />
       ) : (
-        <video
-          onMouseEnter={() => {
-            handleHover(true);
-          }}
-          onMouseLeave={() => {
-            handleHover(false);
-          }}
-          poster={posterURL}
-          ref={videoRef}
-          muted
-          style={{
-            height: "100%",
-          }}
-          playsInline
-        >
-          <source src={videoURL} />
-        </video>
+        <>
+          <video
+            onMouseEnter={() => {
+              handleHover(true);
+            }}
+            onMouseLeave={() => {
+              handleHover(false);
+            }}
+            poster={posterURL}
+            ref={videoRef}
+            muted
+            style={{
+              height: "100%",
+            }}
+            loop
+            playsInline
+          >
+            <source src={videoURL} />
+          </video>
+          <Flex
+            height="100%"
+            width="100%"
+            position="absolute"
+            align="center"
+            justify="center"
+            pointerEvents="none"
+            opacity={hovered ? 1 : 0}
+            transition="opacity 0.2s ease-in-out"
+          >
+            <Icon as={FiPause} fontSize="9xl" color="white" />
+          </Flex>
+        </>
       )}
     </Flex>
   );
