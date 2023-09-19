@@ -1,8 +1,5 @@
-import { titleIDs, titleIdStateAtom } from "@/atoms/titleIdStateAtom";
-
+import { titleIDs, titles } from "@/atoms/titleIdStateAtom";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
-
 import { Flex, Icon, Image } from "@chakra-ui/react";
 import { gsap } from "gsap";
 import { FiPause } from "react-icons/fi";
@@ -18,12 +15,13 @@ export default function SmallScreenPhone({
   videoURL,
   posterURL,
 }: Props) {
-  const titleIdStateValue = useRecoilValue(titleIdStateAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const ref = useRef<HTMLDivElement>(null);
 
   const [clicked, setClicked] = useState(false);
+
+  const [n, setN] = useState<0 | 1 | 2 | 3 | 4 | 5 | 6>(0);
 
   useEffect(() => {
     handleScroll();
@@ -36,12 +34,12 @@ export default function SmallScreenPhone({
   useEffect(() => {
     if (!videoRef.current) return;
 
-    if (titleIdStateValue !== titleId) {
+    if (titles[n] !== titleId) {
       videoRef.current.pause();
     } else {
       handlePlayVideo(videoRef.current);
     }
-  }, [titleIdStateValue]);
+  }, [n]);
 
   const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
     if (clicked) return;
@@ -65,28 +63,33 @@ export default function SmallScreenPhone({
 
     let locationNumeric: number = 0;
 
-    if (ratio <= 0.084) {
-      locationNumeric = -2380.9523809523807 * ratio + 100;
-    } else if (ratio <= 0.25) {
-      locationNumeric = 2409.6385542168678 * ratio - 502.40963855421694;
-    } else if (ratio <= 0.417) {
-      locationNumeric = -2439.024390243904 * ratio + 917.0731707317078;
-    } else if (ratio <= 0.583) {
-      locationNumeric = 2597.402597402599 * ratio - 1414.2857142857151;
-    } else if (ratio <= 0.75) {
-      locationNumeric = -2298.8505747126446 * ratio + 1624.1379310344835;
-    } else if (ratio <= 0.9223) {
-      locationNumeric = 2344.666 * ratio - 2062.485;
+    if (ratio <= 0.125) {
+      locationNumeric = -1600 * ratio + 100;
+      setN(0);
+    } else if (ratio <= 0.2916) {
+      locationNumeric = 1602.5641025641023 * ratio - 367.30769230769226;
+      setN(1);
+    } else if (ratio <= 0.4583) {
+      locationNumeric = -1596.1691939345576 * ratio + 631.5243415802078;
+      setN(2);
+    } else if (ratio <= 0.625) {
+      locationNumeric = 1600 * ratio - 900;
+      setN(3);
+    } else if (ratio <= 0.7916) {
+      locationNumeric = -1600 * ratio + 1166.56;
+      setN(4);
+    } else if (ratio <= 0.9583) {
+      locationNumeric = 1600 * ratio - 1433.28;
+      setN(5);
     } else {
       locationNumeric = 100;
+      setN(6);
     }
 
     const location = `${locationNumeric}%`;
-    const opacityNumeric = -0.01 * Math.abs(locationNumeric) + 1;
 
     gsap.to(ref.current, {
       x: location,
-      opacity: opacityNumeric,
       duration: "0.1",
     });
   };
@@ -106,7 +109,7 @@ export default function SmallScreenPhone({
   return (
     <Flex
       ref={ref}
-      hidden={titleId !== titleIdStateValue}
+      hidden={titleId !== titles[n]}
       height="100%"
       maxHeight="100vh"
       justify="center"
@@ -118,7 +121,7 @@ export default function SmallScreenPhone({
         transform: "translateX(100%)",
       }}
     >
-      {titleId === "welcome" || titleId === "footer" ? (
+      {titleId === "welcome" ? (
         <Image
           objectFit="contain"
           py="1.5"

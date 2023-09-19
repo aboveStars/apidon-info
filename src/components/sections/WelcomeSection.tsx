@@ -1,5 +1,6 @@
 import React from "react";
 import Title from "../Title";
+import { Box } from "@chakra-ui/react";
 
 export default function WelcomeSection() {
   return (
@@ -11,6 +12,7 @@ export default function WelcomeSection() {
         create NFTs that are marketable, and additionally welcomes algorithm
         creators to participate and generate income."
       />
+       <Box height="100vh" width="100%" zIndex={1} />
     </>
   );
 }
