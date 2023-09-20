@@ -63,27 +63,46 @@ export default function SmallScreenPhone({
 
     let locationNumeric: number = 0;
 
+    let processNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    if (ratio <= 0.125) {
+      processNumber = 0;
+      setN(processNumber);
+    } else if (ratio <= 0.2916) {
+      processNumber = 1;
+      setN(processNumber);
+    } else if (ratio <= 0.4583) {
+      processNumber = 2;
+      setN(processNumber);
+    } else if (ratio <= 0.625) {
+      processNumber = 3;
+      setN(processNumber);
+    } else if (ratio <= 0.7916) {
+      processNumber = 4;
+      setN(processNumber);
+    } else if (ratio <= 0.9583) {
+      processNumber = 5;
+      setN(processNumber);
+    } else {
+      processNumber = 6;
+      setN(processNumber);
+    }
+
+    if (titles[processNumber] !== titleId) return;
+
     if (ratio <= 0.125) {
       locationNumeric = -1600 * ratio + 100;
-      setN(0);
     } else if (ratio <= 0.2916) {
       locationNumeric = 1602.5641025641023 * ratio - 367.30769230769226;
-      setN(1);
     } else if (ratio <= 0.4583) {
       locationNumeric = -1596.1691939345576 * ratio + 631.5243415802078;
-      setN(2);
     } else if (ratio <= 0.625) {
       locationNumeric = 1600 * ratio - 900;
-      setN(3);
     } else if (ratio <= 0.7916) {
       locationNumeric = -1600 * ratio + 1166.56;
-      setN(4);
     } else if (ratio <= 0.9583) {
       locationNumeric = 1600 * ratio - 1433.28;
-      setN(5);
     } else {
       locationNumeric = 100;
-      setN(6);
     }
 
     const location = `${locationNumeric}%`;
