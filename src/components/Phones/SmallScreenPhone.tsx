@@ -180,7 +180,7 @@ export default function SmallScreenPhone({
             justify="center"
             pointerEvents="none"
             opacity={clicked ? 1 : 0}
-            transition="opacity 0.2s ease-in-out"
+            transition="opacity 0.5s ease-in-out"
           >
             <Icon as={FiPause} fontSize="8xl" color="white" />
           </Flex>
