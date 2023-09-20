@@ -1,8 +1,12 @@
 import React from "react";
 import Title from "../Title";
 import { Box } from "@chakra-ui/react";
+import { useRecoilValue } from "recoil";
+import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 
 export default function WelcomeSection() {
+  const screenModeValue = useRecoilValue(screenModStateAtom);
+
   return (
     <>
       <Title
@@ -12,7 +16,9 @@ export default function WelcomeSection() {
         create NFTs that are marketable, and additionally welcomes algorithm
         creators to participate and generate income."
       />
-       <Box height="100vh" width="100%" zIndex={1} />
+      {screenModeValue === "mobile" && (
+        <Box height="100vh" width="100%" zIndex={1} />
+      )}
     </>
   );
 }

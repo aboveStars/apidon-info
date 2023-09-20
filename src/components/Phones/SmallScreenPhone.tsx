@@ -1,7 +1,8 @@
 import { titleIDs, titles } from "@/atoms/titleIdStateAtom";
-import { useEffect, useRef, useState } from "react";
 import { Flex, Icon, Image } from "@chakra-ui/react";
+import { useMotionValueEvent, useScroll } from "framer-motion";
 import { gsap } from "gsap";
+import { useEffect, useRef, useState } from "react";
 import { FiPause } from "react-icons/fi";
 
 type Props = {
@@ -23,43 +24,10 @@ export default function SmallScreenPhone({
 
   const [n, setN] = useState<0 | 1 | 2 | 3 | 4 | 5 | 6>(0);
 
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const { scrollYProgress } = useScroll();
 
-  useEffect(() => {
-    if (!videoRef.current) return;
-
-    if (titles[n] !== titleId) {
-      videoRef.current.pause();
-    } else {
-      handlePlayVideo(videoRef.current);
-    }
-  }, [n]);
-
-  const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
-    if (clicked) return;
-    videoRefCurrent.currentTime = 0;
-    try {
-      await videoRefCurrent.play();
-    } catch (error) {
-      // there can be other reasons videos can't be played, but mostly low power mode is causing it.
-    }
-  };
-
-  const handleScroll = () => {
+  useMotionValueEvent(scrollYProgress, "change", (ratio) => {
     if (!ref.current) return;
-
-    const windowHeight = window.innerHeight;
-    const totalScrollableHeight =
-      document.documentElement.scrollHeight - windowHeight;
-
-    const scrolled = window.scrollY;
-    const ratio = scrolled / totalScrollableHeight;
 
     let locationNumeric: number = 0;
 
@@ -111,6 +79,26 @@ export default function SmallScreenPhone({
       x: location,
       duration: "0.1",
     });
+  });
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    if (titles[n] !== titleId) {
+      videoRef.current.pause();
+    } else {
+      handlePlayVideo(videoRef.current);
+    }
+  }, [n]);
+
+  const handlePlayVideo = async (videoRefCurrent: HTMLVideoElement) => {
+    if (clicked) return;
+    videoRefCurrent.currentTime = 0;
+    try {
+      await videoRefCurrent.play();
+    } catch (error) {
+      // there can be other reasons videos can't be played, but mostly low power mode is causing it.
+    }
   };
 
   const handleClick = () => {
@@ -129,8 +117,7 @@ export default function SmallScreenPhone({
     <Flex
       ref={ref}
       hidden={titleId !== titles[n]}
-      height="100%"
-      maxHeight="100vh"
+      height="100vh"
       justify="center"
       width="100%"
       position="fixed"
