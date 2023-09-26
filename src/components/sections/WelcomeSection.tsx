@@ -6,6 +6,7 @@ import { screenModStateAtom } from "@/atoms/screenModeStateAtom";
 
 export default function WelcomeSection() {
   const screenModeValue = useRecoilValue(screenModStateAtom);
+
   return (
     <>
       <Title
