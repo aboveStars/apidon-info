@@ -1,5 +1,6 @@
 import { theme } from "@/theme/theme";
 import { ChakraBaseProvider } from "@chakra-ui/react";
+import { Analytics } from "@vercel/analytics/react";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -42,7 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
           ],
         }}
       />
-
+      <Analytics />
       <RecoilRoot>
         <ChakraBaseProvider theme={theme}>
           <Component {...pageProps} />
