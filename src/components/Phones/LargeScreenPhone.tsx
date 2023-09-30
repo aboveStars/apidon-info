@@ -9,8 +9,8 @@ import { FiPause } from "react-icons/fi";
 
 type Props = {
   titleId: titleIDs;
-  videoURL: string;
-  posterURL: string;
+  videoURL?: string;
+  posterURL?: string;
 };
 
 export default function LargeScreenPhone({
@@ -31,6 +31,8 @@ export default function LargeScreenPhone({
 
   const [hovered, setHovered] = useState(false);
 
+  const [videoLoadError, setVideoLoadError] = useState(false);
+
   useEffect(() => {
     if (!videoRef.current) return;
 
@@ -47,19 +49,21 @@ export default function LargeScreenPhone({
     try {
       await videoRefCurrent.play();
     } catch (error) {
+      setVideoLoadError(true);
       // there can be other reasons videos can't be played, but mostly low power mode is causing it.
     }
   };
 
-  const handleHover = (isEntered: boolean) => {
+  const handleHover = async (isEntered: boolean) => {
     if (!videoRef.current) return;
     if (titleId !== titleIdStateValue) return;
 
     setHovered(isEntered);
     if (isEntered) return videoRef.current.pause();
     try {
-      videoRef.current.play();
+      await videoRef.current.play();
     } catch (error) {
+      setVideoLoadError(true);
       // not important
     }
   };
@@ -102,6 +106,19 @@ export default function LargeScreenPhone({
           pointerEvents="none"
           userSelect="none"
         />
+      ) : videoLoadError ? (
+        <>
+          <Image
+            py="1.5"
+            src={posterURL}
+            objectFit="contain"
+            style={{
+              height: "100%",
+            }}
+            pointerEvents="none"
+            userSelect="none"
+          />
+        </>
       ) : (
         <>
           <video
@@ -111,7 +128,6 @@ export default function LargeScreenPhone({
             onMouseLeave={() => {
               handleHover(false);
             }}
-            poster={posterURL}
             ref={videoRef}
             muted
             style={{

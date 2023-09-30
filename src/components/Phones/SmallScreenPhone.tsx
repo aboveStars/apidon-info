@@ -7,8 +7,8 @@ import { FiPause } from "react-icons/fi";
 
 type Props = {
   titleId: titleIDs;
-  videoURL: string;
-  posterURL: string;
+  videoURL?: string;
+  posterURL?: string;
 };
 
 export default function SmallScreenPhone({
@@ -25,6 +25,8 @@ export default function SmallScreenPhone({
   const [n, setN] = useState<0 | 1 | 2 | 3 | 4 | 5 | 6>(0);
 
   const { scrollYProgress } = useScroll();
+
+  const [videoLoadError, setVideoLoadError] = useState(false);
 
   useMotionValueEvent(scrollYProgress, "change", (ratio) => {
     if (!ref.current) return;
@@ -97,19 +99,19 @@ export default function SmallScreenPhone({
     try {
       await videoRefCurrent.play();
     } catch (error) {
-      // there can be other reasons videos can't be played, but mostly low power mode is causing it.
+      setVideoLoadError(true);
     }
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!videoRef.current) return;
     setClicked((a) => !a);
     const newClickState = !clicked;
     if (newClickState) return videoRef.current.pause();
     try {
-      videoRef.current.play();
+      await videoRef.current.play();
     } catch (error) {
-      // not important
+      setVideoLoadError(true);
     }
   };
 
@@ -127,7 +129,7 @@ export default function SmallScreenPhone({
         transform: "translateX(100%)",
       }}
     >
-      {titleId === "welcome" ? (
+      {titleId === "welcome" || titleId === "footer" ? (
         <Image
           objectFit="contain"
           py="1.5"
@@ -143,11 +145,24 @@ export default function SmallScreenPhone({
           pointerEvents="none"
           userSelect="none"
         />
+      ) : videoLoadError ? (
+        <>
+          <Image
+            objectFit="contain"
+            py="1.5"
+            src={posterURL}
+            style={{
+              height: "100%",
+              borderRadius: "3rem",
+            }}
+            pointerEvents="none"
+            userSelect="none"
+          />
+        </>
       ) : (
         <>
           <video
             onClick={handleClick}
-            poster={posterURL}
             ref={videoRef}
             muted
             style={{
