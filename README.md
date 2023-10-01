@@ -1,6 +1,6 @@
 # Apidon
 
-<img src="https://apidon.com/favicon.ico" alt="Apidon Logo" width="200">
+<img src="https://www.apidon.com/android-chrome-512x512.png" alt="Apidon Logo" width="200">
 
 ## Introduction
 
