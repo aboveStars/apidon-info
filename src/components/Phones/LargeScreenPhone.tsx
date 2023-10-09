@@ -71,10 +71,10 @@ export default function LargeScreenPhone({
   return (
     <Flex
       ref={ref}
-      justify="center"
       width="100%"
       height="100%"
       position="absolute"
+      justify="center"
       p={5}
       transform="auto"
       transition="all 1s ease-in-out"
@@ -122,6 +122,7 @@ export default function LargeScreenPhone({
       ) : (
         <>
           <video
+            poster={posterURL}
             onMouseEnter={() => {
               handleHover(true);
             }}

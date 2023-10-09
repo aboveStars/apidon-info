@@ -162,6 +162,7 @@ export default function SmallScreenPhone({
       ) : (
         <>
           <video
+            poster={posterURL}
             onClick={handleClick}
             ref={videoRef}
             muted
