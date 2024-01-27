@@ -33,7 +33,7 @@ export default function FooterSection() {
       gap="10"
       transform="auto"
       scale={inView ? 1 : 0.5}
-      transitionDuration="1s"
+      transitionDuration="0.6s"
       transitionTimingFunction="linear"
       transitionProperty="transform"
     >

@@ -10,7 +10,6 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel="icon" type="image/png" href="/favicon.ico"></link>
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -29,6 +28,8 @@ export default function App({ Component, pageProps }: AppProps) {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
 
       <DefaultSeo
