@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
           type: "website",
           images: [
             {
-              url: "https://firebasestorage.googleapis.com/v0/b/apidon-info.appspot.com/o/og-image-opt.png?alt=media&token=7c777d81-27c5-4670-8a8a-660eefcfb175",
+              url: "https://apidon.com/og-image.png",
             },
           ],
         }}
