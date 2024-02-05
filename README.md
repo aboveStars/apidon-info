@@ -2,6 +2,7 @@
 
 <img src="https://www.apidon.com/android-chrome-512x512.png" alt="Apidon Logo" width="200">
 
+
 ## Introduction
 
 Apidon is a unique social media platform that revolutionizes the way users interact with algorithms and data processing. Unlike traditional social media platforms, Apidon allows users to choose a provider, which is an algorithm creator, to curate their personalized feed. Providers offer algorithms that shape the user experience, and users are compensated with monthly crypto payments based on their data contributions. Additionally, Apidon provides users with the ability to create and sell NFTs from their posts within the platform.
