@@ -85,7 +85,7 @@ export default function FooterSection() {
           buttonId="github"
           isMobile={screenModeStateValue === "mobile"}
           buttonText="GitHub"
-          socialMediaLink="https://github.com/aboveStars/blocksocial-v2-frontend"
+          socialMediaLink="https://github.com/apidon-corp"
         />
 
         <SocialButton
