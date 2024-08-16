@@ -1,10 +1,10 @@
-import FooterSection from "@/components/sections/FooterSection";
-import NFTSection from "@/components/sections/NFTSection";
-import ProviderSection from "@/components/sections/ProviderSection";
-import SmallPhoneSection from "@/components/sections/SmallPhoneSection";
-import UserSection from "@/components/sections/UserSection";
-import WelcomeSection from "@/components/sections/WelcomeSection";
-import { Flex, Image } from "@chakra-ui/react";
+import FooterSection from '@/components/sections/FooterSection'
+import NFTSection from '@/components/sections/NFTSection'
+import ProviderSection from '@/components/sections/ProviderSection'
+import SmallPhoneSection from '@/components/sections/SmallPhoneSection'
+import UserSection from '@/components/sections/UserSection'
+import WelcomeSection from '@/components/sections/WelcomeSection'
+import { Flex, Image } from '@chakra-ui/react'
 
 export default function SmallScreenLayout() {
   return (
@@ -25,5 +25,5 @@ export default function SmallScreenLayout() {
       <FooterSection />
       <SmallPhoneSection />
     </Flex>
-  );
+  )
 }

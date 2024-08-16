@@ -1,23 +1,8 @@
-import { atom } from "recoil";
+import { atom } from 'recoil'
 
-export type titleIDs =
-  | "welcome"
-  | "vision"
-  | "rewards"
-  | "rate"
-  | "nft"
-  | "provider"
-  | "footer";
+export type titleIDs = 'welcome' | 'vision' | 'rewards' | 'rate' | 'nft' | 'provider' | 'footer'
 
-export const titles: titleIDs[] = [
-  "welcome",
-  "vision",
-  "rewards",
-  "rate",
-  "nft",
-  "provider",
-  "footer",
-];
+export const titles: titleIDs[] = ['welcome', 'vision', 'rewards', 'rate', 'nft', 'provider', 'footer']
 
 export const videoSources = {
   vision: process.env.NEXT_PUBLIC_VISION_VIDEO_URL,
@@ -25,7 +10,7 @@ export const videoSources = {
   rate: process.env.NEXT_PUBLIC_RATE_VIDEO_URL,
   nft: process.env.NEXT_PUBLIC_NFT_VIDEO_URL,
   provider: process.env.NEXT_PUBLIC_PROVIDER_VIDEO_URL,
-};
+}
 export const posterSources = {
   welcome: process.env.NEXT_PUBLIC_WELCOME_POSTER_URL,
   vision: process.env.NEXT_PUBLIC_VISION_POSTER_URL,
@@ -34,9 +19,9 @@ export const posterSources = {
   nft: process.env.NEXT_PUBLIC_NFT_POSTER_URL,
   provider: process.env.NEXT_PUBLIC_PROVIDER_POSTER_URL,
   footer: process.env.NEXT_PUBLIC_WELCOME_POSTER_URL,
-};
+}
 
 export const titleIdStateAtom = atom<titleIDs>({
-  key: "titleIdStateAtom",
-  default: "welcome",
-});
+  key: 'titleIdStateAtom',
+  default: 'welcome',
+})
