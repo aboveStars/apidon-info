@@ -1,8 +1,10 @@
+import { firstContentReadyStateAtom } from '@/atoms/firstContentReadyStateAtom'
 import { titleIDs, titles } from '@/atoms/titleIdStateAtom'
 import { Flex, Image } from '@chakra-ui/react'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { gsap } from 'gsap'
 import { useRef, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
 
 type Props = {
   titleId: titleIDs
@@ -55,7 +57,7 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
 
       return gsap.to(ref.current, {
         x: location,
-        duration: '0.1',
+        duration: '0',
       })
     }
 
@@ -83,6 +85,8 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
     })
   })
 
+  const setFirstContentReadyState = useSetRecoilState(firstContentReadyStateAtom)
+
   return (
     <Flex
       ref={ref}
@@ -108,6 +112,12 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
         }}
         pointerEvents="none"
         userSelect="none"
+        onLoad={() => {
+          if (titleId === 'welcome') setFirstContentReadyState(true)
+        }}
+        onError={() => {
+          if (titleId === 'welcome') setFirstContentReadyState(true)
+        }}
       />
     </Flex>
   )

@@ -1,4 +1,5 @@
 import { firstContentReadyStateAtom } from '@/atoms/firstContentReadyStateAtom'
+import { isBackgroundReadyAtom } from '@/atoms/isBackgroundReadyAtom'
 import StarsBackground from '@/components/background/StarsBackground'
 import InitialScreen from '@/components/InitialScreen'
 import FooterSection from '@/components/sections/FooterSection'
@@ -13,18 +14,19 @@ import { useRecoilValue } from 'recoil'
 
 export default function LargeScreenLayout() {
   const firstContentReadyStateValue = useRecoilValue(firstContentReadyStateAtom)
+  const isBackgroundReadyValue = useRecoilValue(isBackgroundReadyAtom)
 
   const [readyWeAre, setReadyWeAre] = useState(false)
 
   useEffect(() => {
-    setReadyWeAre(firstContentReadyStateValue)
-  }, [firstContentReadyStateValue])
+    setReadyWeAre(firstContentReadyStateValue && isBackgroundReadyValue)
+  }, [firstContentReadyStateValue, isBackgroundReadyValue])
 
   return (
     <Flex id="lg-screen">
       {!readyWeAre && <InitialScreen />}
 
-      <Box>
+      <Box hidden={!readyWeAre}>
         <StarsBackground />
       </Box>
 
