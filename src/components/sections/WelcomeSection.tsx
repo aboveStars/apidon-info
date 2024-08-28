@@ -11,7 +11,7 @@ export default function WelcomeSection() {
     <>
       <Title
         titleId="welcome"
-        title="The Next Generation Social Media"
+        title="The Next Generation Fan Experience"
         description="The magnificent platform that enables users to connect with their idols, buy and showcase exclusive digital collectibles, while providing a seamless social experience."
       />
       {screenModeValue === 'mobile' && <Box height="100vh" width="100%" zIndex={1} />}
