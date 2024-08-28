@@ -1,7 +1,9 @@
 import { titleIDs, titles } from '@/atoms/titleIdStateAtom'
-import { Flex, Image } from '@chakra-ui/react'
+import { Image } from '@chakra-ui/react'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
 import { useState } from 'react'
+
+import { motion } from 'framer-motion'
 
 type Props = {
   titleId: titleIDs
@@ -50,13 +52,6 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
       }
 
       return setLocation(locationNumeric)
-
-      // const location = `${locationNumeric}%`
-
-      // return gsap.to(ref.current, {
-      //   x: location,
-      //   duration: '0',
-      // })
     }
 
     if (ratio <= 0.12) {
@@ -75,41 +70,42 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
       locationNumeric = 100
     }
 
-    // const location = `${locationNumeric}%`
-
-    // gsap.to(ref.current, {
-    //   x: location,
-    //   duration: '0',
-    // })
-
     setLocation(locationNumeric)
   })
 
   return (
-    <Flex
-      hidden={titleId !== titles[n]}
-      height="100vh"
-      justify="center"
-      width="100%"
-      position="fixed"
-      userSelect="none"
-      zIndex={2}
-      style={{
-        transform: `translateX(${location}%)`,
-      }}
-    >
-      <Image
-        objectFit="contain"
-        py="1.5"
-        src={posterURL}
-        fallbackStrategy="onError"
+    <>
+      <motion.div
         style={{
-          height: '100%',
-          borderRadius: '3rem',
+          height: '100vh',
+          justifyContent: 'center',
+          width: '100%',
+          position: 'fixed',
+          userSelect: 'none',
+          zIndex: 2,
+          display: titleId !== titles[n] ? 'none' : undefined,
         }}
-        pointerEvents="none"
-        userSelect="none"
-      />
-    </Flex>
+        animate={{
+          x: `${location}%`,
+        }}
+        transition={{
+          duration: 0,
+          type: 'spring',
+        }}
+      >
+        <Image
+          objectFit="contain"
+          py="1.5"
+          src={posterURL}
+          fallbackStrategy="onError"
+          style={{
+            height: '100%',
+            borderRadius: '3rem',
+          }}
+          pointerEvents="none"
+          userSelect="none"
+        />
+      </motion.div>
+    </>
   )
 }
