@@ -1,9 +1,8 @@
-import { firstContentReadyStateAtom } from '@/atoms/firstContentReadyStateAtom'
 import { titleIDs, titleIdStateAtom } from '@/atoms/titleIdStateAtom'
 import { Flex, Image } from '@chakra-ui/react'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 
 type Props = {
   titleId: titleIDs
@@ -16,8 +15,6 @@ export default function LargeScreenPhone({ titleId, posterURL }: Props) {
   const inView = useInView(ref, {
     once: true,
   })
-
-  const setFirstContentReadyState = useSetRecoilState(firstContentReadyStateAtom)
 
   return (
     <Flex
@@ -42,12 +39,6 @@ export default function LargeScreenPhone({ titleId, posterURL }: Props) {
         objectFit="contain"
         style={{
           height: '100%',
-        }}
-        onLoad={() => {
-          if (titleId === 'welcome') setFirstContentReadyState(true)
-        }}
-        onError={() => {
-          if (titleId === 'welcome') setFirstContentReadyState(true)
         }}
         pointerEvents="none"
         userSelect="none"
