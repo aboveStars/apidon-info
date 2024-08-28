@@ -1,9 +1,9 @@
 import { titleIDs, titles } from '@/atoms/titleIdStateAtom'
 import { Image } from '@chakra-ui/react'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
-import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
 
 type Props = {
   titleId: titleIDs
@@ -15,9 +15,11 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
 
   const { scrollYProgress } = useScroll()
 
-  const [location, setLocation] = useState(100)
+  const ref = useRef<HTMLDivElement>(null)
 
   useMotionValueEvent(scrollYProgress, 'change', (ratio) => {
+    if (!ref.current) return
+
     let processNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6
     if (ratio <= 0.12) {
       processNumber = 0
@@ -51,7 +53,10 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
         locationNumeric = -100
       }
 
-      return setLocation(locationNumeric)
+      return gsap.to(ref.current, {
+        duration: 0,
+        x: `${locationNumeric}%`,
+      })
     }
 
     if (ratio <= 0.12) {
@@ -70,12 +75,16 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
       locationNumeric = 100
     }
 
-    setLocation(locationNumeric)
+    return gsap.to(ref.current, {
+      duration: 0,
+      x: `${locationNumeric}%`,
+    })
   })
 
   return (
     <>
-      <motion.div
+      <div
+        ref={ref}
         style={{
           height: '100vh',
           justifyContent: 'center',
@@ -83,14 +92,8 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
           position: 'fixed',
           userSelect: 'none',
           zIndex: 2,
-          display: titleId !== titles[n] ? 'none' : undefined,
-        }}
-        animate={{
-          x: `${location}%`,
-        }}
-        transition={{
-          duration: 0,
-          type: 'spring',
+          opacity: titleId !== titles[n] ? 0 : 1,
+          transform: 'translateX(100%)',
         }}
       >
         <Image
@@ -105,7 +108,7 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
           pointerEvents="none"
           userSelect="none"
         />
-      </motion.div>
+      </div>
     </>
   )
 }
