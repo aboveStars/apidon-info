@@ -22,13 +22,15 @@ export default function LargeScreenPhone({ titleId, posterURL }: Props) {
       width="100%"
       height="100%"
       position="absolute"
-      justify="center"
-      p={5}
+      justify="flex-end"
+      py={5}
+      px={20}
+      paddingRight={32}
       transform="auto"
-      transition="all 1s ease-in-out"
+      transition="all 1s ease-in-out .1s"
       translateX={titleId === 'welcome' && !inView ? '-100%' : 0}
       rotate={titleId === 'welcome' && !inView ? '-90deg' : '0deg'}
-      scale={titleId === 'welcome' && !inView ? '1.1' : '1'}
+      scale={titleId === 'welcome' && !inView ? '0.5' : '1'}
       opacity={titleIdStateValue === titleId ? 1 : 0}
       userSelect="none"
       pointerEvents={titleId === titleIdStateValue ? 'unset' : 'none'}

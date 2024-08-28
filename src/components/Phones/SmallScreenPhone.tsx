@@ -1,9 +1,7 @@
 import { titleIDs, titles } from '@/atoms/titleIdStateAtom'
 import { Flex, Image } from '@chakra-ui/react'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
-import { gsap } from 'gsap'
-import { useRef, useState } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useState } from 'react'
 
 type Props = {
   titleId: titleIDs
@@ -11,15 +9,13 @@ type Props = {
 }
 
 export default function SmallScreenPhone({ titleId, posterURL }: Props) {
-  const ref = useRef<HTMLDivElement>(null)
-
   const [n, setN] = useState<0 | 1 | 2 | 3 | 4 | 5 | 6>(0)
 
   const { scrollYProgress } = useScroll()
 
-  useMotionValueEvent(scrollYProgress, 'change', (ratio) => {
-    if (!ref.current) return
+  const [location, setLocation] = useState(100)
 
+  useMotionValueEvent(scrollYProgress, 'change', (ratio) => {
     let processNumber: 0 | 1 | 2 | 3 | 4 | 5 | 6
     if (ratio <= 0.12) {
       processNumber = 0
@@ -52,12 +48,15 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
       } else {
         locationNumeric = -100
       }
-      const location = `${locationNumeric}%`
 
-      return gsap.to(ref.current, {
-        x: location,
-        duration: '0',
-      })
+      return setLocation(locationNumeric)
+
+      // const location = `${locationNumeric}%`
+
+      // return gsap.to(ref.current, {
+      //   x: location,
+      //   duration: '0',
+      // })
     }
 
     if (ratio <= 0.12) {
@@ -76,17 +75,18 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
       locationNumeric = 100
     }
 
-    const location = `${locationNumeric}%`
+    // const location = `${locationNumeric}%`
 
-    gsap.to(ref.current, {
-      x: location,
-      duration: '0',
-    })
+    // gsap.to(ref.current, {
+    //   x: location,
+    //   duration: '0',
+    // })
+
+    setLocation(locationNumeric)
   })
 
   return (
     <Flex
-      ref={ref}
       hidden={titleId !== titles[n]}
       height="100vh"
       justify="center"
@@ -95,7 +95,7 @@ export default function SmallScreenPhone({ titleId, posterURL }: Props) {
       userSelect="none"
       zIndex={2}
       style={{
-        transform: 'translateX(100%)',
+        transform: `translateX(${location}%)`,
       }}
     >
       <Image

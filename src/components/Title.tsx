@@ -36,7 +36,8 @@ export default function Title({ title, description, titleId }: Props) {
       transitionDuration="0.6s"
       transitionTimingFunction="linear"
       transitionProperty="transform"
-      px={screenModeStateValue === "mobile" ? "5" : "20"}
+      px={screenModeStateValue === "mobile" ? "5" : 20}
+      paddingLeft={screenModeStateValue === "mobile" ? undefined : "32"}
       zIndex={1}
     >
       <Text
