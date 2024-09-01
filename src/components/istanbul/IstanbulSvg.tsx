@@ -1,54 +1,44 @@
-import { Box } from "@chakra-ui/react";
-import { motion, useAnimationControls, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { clearIstanbulAllPath } from "./IstanbulPath";
+import { Box } from '@chakra-ui/react'
+import { motion, useAnimationControls, useInView } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { clearIstanbulAllPath } from './IstanbulPath'
 
 type Props = {
-  isMobile: boolean;
-};
+  isMobile: boolean
+}
 
 export default function IstanbulSVG({ isMobile }: Props) {
-  const animationControls = useAnimationControls();
-  const secondAC = useAnimationControls();
+  const animationControls = useAnimationControls()
+  const secondAC = useAnimationControls()
 
-  const [animationIsInProgress, setAnimationIsInProgress] = useState(false);
+  const [animationIsInProgress, setAnimationIsInProgress] = useState(false)
 
-  const ref = useRef(null);
-  const inView = useInView(ref);
+  const ref = useRef(null)
+  const inView = useInView(ref)
 
   useEffect(() => {
     if (inView) {
-      handleAnimations();
+      handleAnimations()
     }
-  }, [inView]);
+  }, [inView])
 
-  const handleAnimations = async () => {
-    if (animationIsInProgress) return;
+  const resetAnimations = () => {
+    animationControls.set({
+      pathLength: 0,
+      transition: {
+        duration: 0,
+      },
+    })
 
-    setAnimationIsInProgress(true);
+    secondAC.set({
+      fillOpacity: 0,
+      transition: {
+        duration: 0,
+      },
+    })
+  }
 
-    try {
-      await animationControls.start({
-        pathLength: 0,
-        transition: {
-          duration: 0,
-        },
-      });
-    } catch (error) {
-      // not important
-    }
-
-    try {
-      await secondAC.start({
-        fillOpacity: 0,
-        transition: {
-          duration: 0,
-        },
-      });
-    } catch (error) {
-      // not important
-    }
-
+  const performAnimations = async () => {
     try {
       await animationControls.start({
         pathLength: 1,
@@ -56,28 +46,33 @@ export default function IstanbulSVG({ isMobile }: Props) {
           delay: 0,
           ease: [1, 0.01, 0.9, 0.99],
           duration: 3,
-          type: "tween",
+          type: 'tween',
         },
-      });
-    } catch (error) {
-      // not important
-    }
 
-    try {
+      })
+
       await secondAC.start({
         fillOpacity: 1,
         transition: {
           delay: 0,
           duration: 0.5,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         },
-      });
-    } catch (error) {
-      // not important
-    }
+      })
+    } catch (error) {}
+  }
 
-    setAnimationIsInProgress(false);
-  };
+  const handleAnimations = async () => {
+    if (animationIsInProgress) return
+
+    setAnimationIsInProgress(true)
+
+    resetAnimations()
+
+    await performAnimations()
+
+    setAnimationIsInProgress(false)
+  }
 
   return (
     <Box
@@ -86,26 +81,21 @@ export default function IstanbulSVG({ isMobile }: Props) {
       width="100%"
       height="auto"
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
       }}
       onMouseEnter={() => {
-        if (isMobile) return;
-        handleAnimations();
+        if (isMobile) return
+        handleAnimations()
       }}
       onClick={() => {
-        if (!isMobile) return;
-        handleAnimations();
+        if (!isMobile) return
+        handleAnimations()
       }}
     >
       <svg width="100%" viewBox="0 0 425 115">
-        <motion.g
-          fill="#1b1918"
-          fillRule="evenodd"
-          fillOpacity={0}
-          animate={secondAC}
-        >
+        <motion.g fill="#1b1918" fillRule="evenodd" fillOpacity={0} animate={secondAC}>
           <motion.path
             pathLength={0}
             animate={animationControls}
@@ -117,5 +107,5 @@ export default function IstanbulSVG({ isMobile }: Props) {
         </motion.g>
       </svg>
     </Box>
-  );
+  )
 }
